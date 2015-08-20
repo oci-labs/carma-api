@@ -1,0 +1,708 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Carmageddon Back End API - version 1.0.0</title><link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200"><style>/* Highlight.js Theme Tomorrow */
+.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}</style><style>body,
+h4,
+h5 {
+  font-family: 'Roboto' sans-serif !important;
+}
+h1,
+h2,
+h3,
+.aglio {
+  font-family: 'Raleway' sans-serif !important;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a {
+  display: none;
+}
+h1:hover a,
+h2:hover a,
+h3:hover a,
+h4:hover a,
+h5:hover a {
+  display: inline;
+}
+code {
+  color: #444;
+  background-color: #ddd;
+  font-family: 'Inconsolata' monospace !important;
+}
+a[data-target] {
+  cursor: pointer;
+}
+h4 {
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.back-to-top {
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  right: 24px;
+  padding: 4px 8px;
+  background-color: #eee;
+  text-decoration: none !important;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel {
+  overflow: hidden;
+}
+.panel-heading code {
+  margin-left: 3px;
+  color: #c7254e;
+  background-color: rgba(255,255,255,0.7);
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.panel-heading h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a.list-group-item:hover {
+  background-color: #f8f8f8;
+  border-left: 2px solid #555;
+  padding-left: 15px;
+}
+.indent {
+  display: block;
+  text-indent: 16px;
+}
+.list-group-item {
+  padding-left: 16px;
+}
+.list-group-item .toggle .open {
+  display: block;
+}
+.list-group-item .toggle .closed {
+  display: none;
+}
+.list-group-item.collapsed .toggle .open {
+  display: none;
+}
+.list-group-item.collapsed .toggle .closed {
+  display: block;
+}
+a.list-group-item {
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+a.list-group-item.heading {
+  font-size: 15px;
+  background-color: #f5f5f5;
+}
+a.list-group-item.heading:hover {
+  background-color: #f8f8f8;
+}
+.list-group-item.collapse {
+  display: none;
+}
+.list-group-item.collapse.in {
+  display: block;
+}
+.list-group-item a span.closed {
+  display: none;
+}
+.list-group-item a span.open {
+  display: block;
+}
+.list-group-item a.collapsed span.closed {
+  display: block;
+}
+.list-group-item a.collapsed span.open {
+  display: none;
+}
+#nav {
+  width: inherit;
+  margin-top: 38px;
+  max-width: 255px;
+  top: 0;
+  bottom: 0;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  overflow-y: auto;
+}
+@media (max-width: 1199px) {
+  #nav {
+    max-width: 212px;
+  }
+}
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#city-menu" href="#city" class="list-group-item heading collapsed">City</a><div id="city-menu"><a href="#city-cities-collection" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Cities Collection</a><a href="#city-cities-collection-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">List Cities</span></a><a href="#city-cities-collection-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">Search Cities</span></a><a href="#city-city" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>City</a><a href="#city-city-stations" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>City Stations</a></div></div><div class="list-group"><a data-toggle="" data-target="#station-menu" href="#station" class="list-group-item heading collapsed">Station</a><div id="station-menu"></div></div><div class="list-group"><a data-toggle="" data-target="#pump-menu" href="#pump" class="list-group-item heading collapsed">Pump</a><div id="pump-menu"></div></div><div class="list-group"><a data-toggle="" data-target="#tank-menu" href="#tank" class="list-group-item heading collapsed">Tank</a><div id="tank-menu"></div></div></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Carmageddon Back End API - version 1.0.0</h1></div></header><div class="description"><p>The <strong>Carmageddon Back End API</strong> provides access to acquire data
+about cities, stations, pumps, and tanks used in the Carmageddon
+demonstration scenario.  This API is used by the demonstration client
+to obtain information about the corporate resources, their locations,
+and processed analytic results.</p>
+<p>The base URI for version 1 of the API is:</p>
+<pre><code>    http://api.carma.demo.ociweb.com/v1/...
+</code></pre>
+<p>The base URI includes the protocol, hostname and port, and a prefix path
+to the endpoint URIs.  The prefix path includes the interface version of
+the API being accessed.  Note that any changes to an existing version of
+the API will only extend it with additional parameters and endpoints,
+allowing existing clients to continue operation without modification when
+accessing the API.</p>
+<h2>Versions</h2>
+<p>Version numbering for the API is based on semantic versioning
+(<a href="http://semver.org/">http://semver.org/</a>) and a client written to a major version is guaranteed
+to continue working for all subsequent minor and patch versions.</p>
+<p>The current major version will always be available along with the
+immediately preceding major version.  The major version 2 levels previous
+will be deprecated on release of a new major version and then obsoleted
+on the release of the next version.</p>
+<p>This means that there will always be the current and two preceding
+versions of the API available for use.  Use of the current version is
+always encouraged.</p>
+<h2>Data Formats</h2>
+<p>All data that is sent to or received from the Carmageddon Back End API
+is JSON encoded.  The structure of the JSON data is defined as conforming
+to a specific schema that is well defined.  The schema syntax followed is
+defined at <a href="http://json-schema.org/">http://json-schema.org/</a> and is itself defined in JSON format.</p>
+<h3>Media Type</h3>
+<p>The Carmageddon Back End API includes a media type to be used by the
+‘Content-Type’ header to define the data being transfered from or to
+the server.</p>
+<p>The API specific type for a pure JSON message content includes a required
+<code>profile</code> parameter that refers to the URI for the JSON schema definition.</p>
+<ul>
+<li><p><code>application/prs.ociweb.api+json;profile=&lt;schema-URL&gt;</code></p>
+<p>this media-type is for JSON data and includes a required <code>profile</code>
+parameter.  The <code>profile</code> parameter value is used to define the
+allowable contents of the message data.</p></li>
+</ul>
+<h3>Schemas</h3>
+<p>Data schemas are defined using the <a href="http://json-schema.org">http://json-schema.org</a> schema
+definition mechanism.  The schema JSON is available for use as
+documentation or for validation at the URIs given in the following
+sections.</p>
+<p>The value of the <code>profile</code> parameter used in the media type definition
+is the URL to reach the file used to store the schema.  The <code>profile</code>
+parameter values are used with the media types in the API description
+below to avoid repeating the schema description for each URI.</p>
+<h4>Collection Data</h4>
+<p>The collection data schema is used for data that includes more than one
+element in the message.  The contained data elements are described using
+their own schemas described below, but the container schema describes how
+the multiple elements are included in the message.</p>
+<p>Collection data is an object that contains some definition information
+along with an array of data elements.  The data type of the elements is
+defined by the schema pointed to using the <code>contentSchema</code> URI property of
+the collection.  The property holds a valid URI to the schema definition
+and the relationship of the property is a <code>describedBy</code> relationshop as
+defined in RFC5988 (<a href="http://tools.ietf.org/html/rfc5988">http://tools.ietf.org/html/rfc5988</a>).  Inclusion of
+the <code>contentSchema</code> property is optional and can be inferred for most API
+calls.</p>
+<p>The <code>data</code> property of the collection holds an array of elements of the
+same type.  The type of data must be one of the valid API schemas as
+defined in this document.</p>
+<p>The collection schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/collection.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Collection&quot;,
+          &quot;description&quot;: &quot;Contains multiple elements of another type&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;contentSchema&quot;: {
+              &quot;description&quot;: &quot;URI of the schema describing elements of the collection&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;data&quot;: {
+              &quot;description&quot;: &quot;array of elements&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;description&quot;: &quot;element of the collection&quot;,
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;oneOf&quot;: [
+                  { &quot;$ref&quot;: &quot;city.json#&quot; },
+                  { &quot;$ref&quot;: &quot;errordata.json#&quot; },
+                  { &quot;$ref&quot;: &quot;event.json#&quot; },
+                  { &quot;$ref&quot;: &quot;price.json#&quot; },
+                  { &quot;$ref&quot;: &quot;pump.json#&quot; },
+                  { &quot;$ref&quot;: &quot;revenue.json#&quot; },
+                  { &quot;$ref&quot;: &quot;station.json#&quot; },
+                  { &quot;$ref&quot;: &quot;tank.json#&quot; }
+                ]
+              }
+            }
+          },
+          &quot;required&quot;: [&quot;data&quot;]
+        }
+</code></pre>
+<h4>City Data</h4>
+<p>The city data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/city.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;City&quot;,
+          &quot;description&quot;: &quot;Describes information about cities&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Station Data</h4>
+<p>The station data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/station.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Station&quot;,
+          &quot;description&quot;: &quot;Describes information about stations&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Pump Data</h4>
+<p>The pump data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/pump.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Pump&quot;,
+          &quot;description&quot;: &quot;Describes information about pumps&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Price Data</h4>
+<p>The price data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/price.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Price&quot;,
+          &quot;description&quot;: &quot;Describes information about prices&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Revenue Data</h4>
+<p>The revenue data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/revenue.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Revenue&quot;,
+          &quot;description&quot;: &quot;Describes information about revenue&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Event Data</h4>
+<p>The event data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/event.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Event&quot;,
+          &quot;description&quot;: &quot;Describes information about events&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Tank Data</h4>
+<p>The tank data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/tank.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;Tank&quot;,
+          &quot;description&quot;: &quot;Describes information about tanks&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key1&quot;: {
+              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;key2&quot;: {
+              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;key3&quot;: {
+              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;id&quot;]
+        }
+</code></pre>
+<h4>Error Data</h4>
+<p>Error data is included in response data when a status code other than
+in the 200 range is returned.  This data is optional and its intent is to
+provide additional information about what caused the API call to fail.
+For example, if a call fails due to insufficient authorization, the
+message data can include a string stating this along with one or two
+links that can be used to login or register in order to obtain the proper
+authorization to make the call.</p>
+<p>The error data schema description filename and the media type parameter
+value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/schemas/errordata.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;ErrorData&quot;,
+          &quot;description&quot;: &quot;Describes information about errors encountered&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;reason&quot;: {
+              &quot;description&quot;: &quot;cause of the error&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;required&quot;: [&quot;reason&quot;]
+        }
+</code></pre>
+<h2>Access Semantics</h2>
+<h3>Reading Resources</h3>
+<p>To read the content of resources, the HTTP GET method is used.  The URI
+to the resource will determine if an individual resource, all resources,
+or some resources will be retrieved.</p>
+<p>Reading the entire available resource list is done by simply calling the
+API GET method with the collection URI and no parameters.  All data for
+that resource will be returned.  An example of this API call is:</p>
+<pre><code>    GET /collection
+</code></pre>
+<p>It is also possible to page through the available resources.  This is
+useful when there are many resources and the client wants to start
+using the available list prior to receiving the entire list; for example
+to start building a table in the user interface with the first entries
+before the entire set of data has been received.</p>
+<p>Reading partial lists is done by providing query parameters to the GET
+method call that indicate the starting index (<code>start</code>) and number of
+entries (<code>span</code>) to return.  The starting index is the offset in the
+entire list from the first entry.  For example, calling</p>
+<pre><code>    GET /stations?start=51;span=50
+</code></pre>
+<p>will return the second 50 elements of the ‘/stations’ resource that
+are available.  Clients should be aware that if the resource collection
+is updated between calls to these partial reads occur, the list being
+accessed will not remain unchanged.</p>
+<p>Individual resources can be read by simply adding the {resourceid} value
+as the next element in the URI path:</p>
+<pre><code>    GET /collection/{rescourceid}
+</code></pre>
+<h3>Searching for Resources</h3>
+<p>It is possible to search for resources of a type.  This is done by using
+the HTTP GET method at a URI relative to the resource being searched for.
+Access from search is restricted to reading and effectively returns
+those records that meet the search criteria.</p>
+<p>Search URIs will be formed similar to: /collection?search=<query></p>
+<h2>HTTP Headers</h2>
+<p>The Carmageddon Back End ReST API requires and allows certain HTTP
+headers to be present in the request messages and provides headers in
+the response messages.  These headers modify how the server responds to
+requests and provides additional information about the responses provided.</p>
+<p>It is expected that the standard header mechanisms for caching, content
+negotiation, and connection management (among others) are handled
+externally to the API by the HTTP client and server libraries.  They are
+not addressed here.</p>
+<h3>Request Headers</h3>
+<p>There are no additional request headers required for this API.  Since the
+API provides only GET endpoints and parameters are supplied as either URI
+or Query parameters, no additional data needs to be sent as part of the
+request.</p>
+<h3>Response Headers</h3>
+<p>The Response headers in addition to standard headers that are provided
+by the API include Content-Type, and Retry-After.  These headers provide
+additional information to the client for normal as well as exceptional
+response messages.</p>
+<h4>Content-Type Header</h4>
+<p>This header is sent when providing data in the response message.  This
+header indicates what format the data is supplied in.  As discussed in
+the data formats section above, this will be the API specific API format:</p>
+<pre><code>    * application/prs.ociweb.api+json;profile=&lt;schema-URL&gt;
+</code></pre>
+<p>where the schema defined at &lt;schema-URL&gt; describes the details of the
+data format.</p>
+<h4>Retry-After Header</h4>
+<p>This header is sent with the 429 and 503 status code response messages.
+It will indicate the number of seconds to wait before retrying the
+request.</p>
+<h2>Status Return Codes</h2>
+<p>In response to HTTP requests, the API will return a status code along
+with HTTP response headers and any data for the call.  The status codes
+indicate the result of the call and can be used to distinguish different
+reasons for the failure of an API call.</p>
+<p>In addition to the response codes from the API, clients should be
+prepared to handle additional response codes that are generated by other
+elements within the web - such as 3xx codes and some 4xx and 5xx codes.
+Most of these other response status codes may be handled by the browser
+or library that is being used to make the remote API calls.</p>
+<h3>200 Ok</h3>
+<p>This status code indicates that the API call was successful and the
+requested operation was compelted prior to the response being sent.</p>
+<h3>204 No Content</h3>
+<p>This status code indicates that the API call was successful but that
+there is no content being returned.  This will be sent only when the API
+defines that response data will be sent, and no data was available to
+send in the response.  Calls that are defined to not return data simply
+return the 200 status code.</p>
+<h3>400 Bad Request</h3>
+<p>This status code indicates that the server was unable to parse the
+incoming API call correctly.  The response data will typically include
+additional information about the failure cause.</p>
+<h3>404 Not Found</h3>
+<p>This status code indicates that the requested resource was not found on
+the server.  The response may or may not include additional information
+about the resource.  This may include advice on how to create the
+requested resource.</p>
+<h3>405 Method Not Allowed</h3>
+<p>This status code indicates that the API call was to a resource that does
+not support the requested HTTP method.  The response will include the
+allowed methods in and HTTP Accept header.</p>
+<h3>429 Too Many Requests</h3>
+<p>This status code indicates that the client has been sending too many
+requests and the server is implementing rate limiting for this client.
+The response header may include an HTTP Retry-After header to indicate
+how much time should elapse before another call is made if the client
+wishes to avoid rate limiting.</p>
+<h3>500 Internal Server Error</h3>
+<p>This status code indicates that the server has encountered an error which
+it is unable to handle during the processing of the API call.</p>
+<h3>501 Not Implemented</h3>
+<p>This status code indicates that the client attempted to use a feature of
+HTTP (such as an extended feature like PATCH) that is not recognized by
+the server.  This is different from the 405 code which indicates that the
+method is recognized but not allowed by the resource.</p>
+<h3>503 Service Unavailable</h3>
+<p>This status code indicates that the HTTP server is active, but the
+underlying server that implements the API is not available at this time.
+The server may send an HTTP Retry-After header if the cause is not due to
+resource starvation but to some known reason that is expected to clear.</p>
+<h2>Parameters used by the API</h2>
+<p>The Carmageddon Back End ReST API uses parameters in the formation
+of URIs in order to specialize the method calls.  These parameters are
+either direct URI parameters, part of the URI path, or query parameters -
+added to the end of the path after a ‘?’ symbol and separated with ‘;’
+symbols if more than one.</p>
+<h3>URI Parameters</h3>
+<p>The URI paramters used by the API are used to uniquely identify elements
+within the available data.  Each element accessible by the API has a
+unique identifier that is unique within that elements type.  This means
+that it is a mistake to attempt access of one type of data using an
+identifier for another (do not use a station Id to access a pump Id
+for example).</p>
+<p>URI parameters are individual path elements in the URI.  These parameters
+are not combined in this API, so each parameter stands on its own.</p>
+<h4>Cities Id</h4>
+<p>The {citiesid} parameter is a string value that is used to uniquely
+identify each available cities resource.  There should be no meaning
+attributed to the parameter value; specifically the value cannot be used
+as an index into lists or the dataset.</p>
+<h4>Stations Id</h4>
+<p>The {stationsid} parameter is a string value that is used to uniquely
+identify each available stations resource.  There should be no meaning
+attributed to the parameter value; specifically the value cannot be used
+as an index into lists or the dataset.</p>
+<h4>Pumps Id</h4>
+<p>The {pumpsid} parameter is a string value that is used to uniquely
+identify each available pumps resource.  There should be no meaning
+attributed to the parameter value; specifically the value cannot be used
+as an index into lists or the dataset.</p>
+<h4>Tanks Id</h4>
+<p>The {tanksid} parameter is a string value that is used to uniquely
+identify each available tanks resource.  There should be no meaning
+attributed to the parameter value; specifically the value cannot be used
+as an index into lists or the dataset.</p>
+<h3>Query Parameters</h3>
+<p>The query parameters used by the API are used when accessing a collection
+for reading and used to restrict the access to a subset of the available
+data.  These parameters will occur after the URI path, separated from the
+path by a ‘?’ symbol, and if more than one is present they will be
+separated with a ‘;’ symbol.</p>
+<p>These parameters are of the form:</p>
+<pre><code>    &lt;paramter-name&gt;=&lt;value&gt;
+</code></pre>
+<p>where the &lt;parameter-name&gt; is one of those below.</p>
+<h4>start</h4>
+<p>The <code>start</code> parameter is used to indicate the first record to return in a
+restricted list of results.  This is a numeric index into the list where
+the first record is at index 1.  The list indexed is the one present at
+the time the request is received.  If the list has been modified since
+the last call, the index may not reference the expected data.  It is up
+to the client to determine if a list is complete or if the same list
+elements have been encountered when paging.</p>
+<h4>span</h4>
+<p>The <code>span</code> parameter is used to indicate the number of records to return
+in a restricted list of results.  This number of records will be returned
+if there are enough after the starting index.  If there are not enough
+elements to satisfy the request, then as many available records will be
+sent as possible.  It is up to the client to check the length of the
+returned array to ensure that it does not attempt to access elements
+beyond the end of the list.</p>
+<h4>search</h4>
+<p>The <code>search</code> parameter is used to provide search parameters for returning
+data lists from the server.  These parameters are defined as:</p>
+<pre><code>    '??? - ???'
+</code></pre>
+</div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="city">City&nbsp;<a href="#city"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h4 id="city-cities-collection">Cities Collection&nbsp;<a href="#city-cities-collection"><i class="fa fa-link"></i></a></h4><section id="city-cities-collection-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List Cities</span></div><div style="float:left"><a href="#city-cities-collection-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?start,span,search}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#c7783d04470952a3430a5171e7efb893" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="c7783d04470952a3430a5171e7efb893" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+
+        { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"z234ave"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Saint Louis"</span>},
+                    { <span class="hljs-string">"id"</span>: <span class="hljs-string">"34tgqa9"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Manhattan"</span>}
+        ]}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><section id="city-cities-collection-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Search Cities</span></div><div style="float:left"><a href="#city-cities-collection-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?start,span,search}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#fb3d665f6fa758d2fe4e018e4387cd3f" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="fb3d665f6fa758d2fe4e018e4387cd3f" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+
+        { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"w3r0kl7"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Los Angeles"</span>},
+                    { <span class="hljs-string">"id"</span>: <span class="hljs-string">"234r5ga"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Denver"</span>}
+        ]}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-city">City&nbsp;<a href="#city-city"><i class="fa fa-link"></i></a></h4><section id="city-city-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single City</span></div><div style="float:left"><a href="#city-city-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8012a0a9a72d144c5c6ed42e341d283b" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8012a0a9a72d144c5c6ed42e341d283b" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section><h4 id="city-city-stations">City Stations&nbsp;<a href="#city-city-stations"><i class="fa fa-link"></i></a></h4><section id="city-city-stations-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get stations in a city</span></div><div style="float:left"><a href="#city-city-stations-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}/stations{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8c480da2307a2a82aac3ee8b49f5a4f5" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8c480da2307a2a82aac3ee8b49f5a4f5" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+
+        { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"seqr087"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"bob"</span>},
+                    { <span class="hljs-string">"id"</span>: <span class="hljs-string">"awf084e"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"carol"</span>},
+                    { <span class="hljs-string">"id"</span>: <span class="hljs-string">"q3r4a0e"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"ted"</span>},
+                    { <span class="hljs-string">"id"</span>: <span class="hljs-string">"qaelija"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"alice"</span>}
+        ]}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="station">Station&nbsp;<a href="#station"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="pump">Pump&nbsp;<a href="#pump"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tank">Tank&nbsp;<a href="#tank"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 20 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+
+</div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
+  if (location.protocol === 'file:') {
+    document.getElementById('localFile').style.display = 'block';
+  }
+
+}).call(this);
+</script><script>(function() {
+  $('table').addClass('table');
+
+}).call(this);
+</script></html>
