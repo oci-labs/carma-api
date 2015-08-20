@@ -1,7 +1,4 @@
 node_modules
-master
-v1
-develop
 *.bak
 *~
 .*.swp
