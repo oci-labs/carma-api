@@ -1,0 +1,13 @@
+{
+  "name": "carma-api",
+  "version": "0.0.1",
+  "description": "Carmageddon back end API",
+  "author": "brillozon",
+  "license": "MIT",
+  "dependencies": {
+    "aglio": "^1.14.0",
+    "async": "^0.9.0",
+    "lodash": "^2.4.1",
+    "node-fs": "^0.1.7"
+  }
+}

@@ -1,0 +1,102 @@
+FORMAT: 1A
+
+# Carmageddon Back End API - version 1.0.0
+
+The **Carmageddon Back End API** provides access to acquire data
+about cities, stations, pumps, and tanks used in the Carmageddon
+demonstration scenario.  This API is used by the demonstration client
+to obtain information about the corporate resources, their locations,
+and processed analytic results.
+
+The base URI for version 1 of the API is:
+
+        http://api.carma.demo.ociweb.com/v1/...
+
+The base URI includes the protocol, hostname and port, and a prefix path
+to the endpoint URIs.  The prefix path includes the interface version of
+the API being accessed.  Note that any changes to an existing version of
+the API will only extend it with additional parameters and endpoints,
+allowing existing clients to continue operation without modification when
+accessing the API.
+
+<!-- include(api-top-sections.md) -->
+
+# Group City
+
+## Cities Collection [/cities{?start,span,search}]
+
+### List Cities [GET]
+
++ Parameters
+
+        + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+        + span = `20` (optional,number) ... Number of City entries to return in the response.
+
++ Response 200 (application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json)
+
+        + Body
+
+                { "data": [ { "id": "z234ave", "name": "Saint Louis"},
+                            { "id": "34tgqa9", "name": "Manhattan"}
+                ]}
+
++ Response 204
+
+### Search Cities [GET]
+
++ Parameters
+
+        + search = `population>200` (optional,string) ... Query parameter for search.
+
++ Response 200 (application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json)
+
+        + Body
+
+                { "data": [ { "id": "w3r0kl7", "name": "Los Angeles"},
+                            { "id": "234r5ga", "name": "Denver"}
+                ]}
+
++ Response 204
+
+## City [/cities/{cityid}]
+
++ Parameters
+
+        + cityid (required,string,`q34fa`) ... Unique identfier for the city.
+
+### Get a single City [GET]
+
++ Response 200 (application/prs.ociweb.api+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json)
+
++ Response 404
+
+## City Stations [/cities/{cityid}/stations{?start,span}]
+
++ Parameters
+
+        + cityid (required,string,`q34fa`) ... Unique identfier for the city.
+        + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+        + span = `20` (optional,number) ... Number of City entries to return in the response.
+
+### Get stations in a city [GET]
+
++ Response 200 (application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json)
+
+        + Body
+
+                { "data": [ { "id": "seqr087", "name": "bob"},
+                            { "id": "awf084e", "name": "carol"},
+                            { "id": "q3r4a0e", "name": "ted"},
+                            { "id": "qaelija", "name": "alice"}
+                ]}
+
++ Response 204
+
++ Response 404
+
+# Group Station
+
+# Group Pump
+
+# Group Tank
+

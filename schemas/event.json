@@ -1,0 +1,27 @@
+
+            {
+              "$schema": "http://json-schema.org/draft-04/schema#4",
+              "title": "Event",
+              "description": "Describes information about events",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "unique identifier for this event",
+                  "type": "string"
+                },
+                "key1": {
+                  "description": "a string typed field in the data",
+                  "type": "string"
+                },
+                "key2": {
+                  "description": "a number typed field in the data",
+                  "type": "number"
+                },
+                "key3": {
+                  "description": "a boolean typed field in the data",
+                  "type": "boolean"
+                }
+              },
+              "required": ["id"]
+            }
+
