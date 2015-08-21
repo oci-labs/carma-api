@@ -81,10 +81,9 @@ sent as possible.  It is up to the client to check the length of the
 returned array to ensure that it does not attempt to access elements
 beyond the end of the list.
 
-#### search
+#### query
 
-The `search` parameter is used to provide search parameters for returning
-data lists from the server.  These parameters are defined as:
-
-        '??? - ???'
+When a search URI is used, the `query` parameter is used to specify the
+criteria for the search.  The value of this parameter corresponds to the
+'WHERE' clause of an SQL 'SELECT' statement.
 

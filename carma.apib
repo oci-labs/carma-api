@@ -23,7 +23,20 @@ accessing the API.
 
 # Group City
 
+These resource identifiers represent information about the City resources
+of the corporation.  Cities have information about their location and an
+intial zoom level when viewing the location on a map.  Each city also has
+a name and a state associated with it.  Cities also are a container for
+stations; that is each city has a list of stations which are resident in
+that city.
+
 ## Cities Collection [/cities{?start,span}]
+
+Obtain a list of all cities which have stations owned by the corporation.
+This is a paged URI that can be used to obtain the entire set of
+information in groups of `span` parameter values.  If no parameters are
+supplied, then all cities are returned.  The returned data is an array
+of individual city information, not a simple list of `cityid` values.
 
 ### List Cities [GET]
 
@@ -42,13 +55,17 @@ accessing the API.
 
 + Response 204
 
-## Cities Search [/cities{?search}]
+## Cities Search [/search/cities{?query}]
+
+Search for cities.  This returns a list of cities which meet the criteria
+supplied by the `query` parameter.  Search results consist of an array of
+individual city information and not just a simple list of `cityid` values.
 
 ### Search Cities [GET]
 
 + Parameters
 
-        + search = `population>200` (optional,string) ... Query parameter for search.
+        + query = `latitude>35.5` (optional,string) ... Query parameter for search.
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
@@ -62,17 +79,31 @@ accessing the API.
 
 ## City [/cities/{cityid}]
 
+Obtain the information for a single city.
+
 + Parameters
 
         + cityid (required,string,`q34fa`) ... Unique identfier for the city.
 
-### Get a single City [GET]
+### List a single City [GET]
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json)
+
+        + Body
+
+                {
+                  "id": "23rqaf4",
+                  "key1": "value1"
+                }
 
 + Response 404
 
 ## City Stations [/cities/{cityid}/stations{?start,span}]
+
+City stations are the stations which are located within the city.  The
+returned information includes a list of the `stationid` values for
+stations which are located within the named city.  Information about the
+stations will need to be obtained separately.
 
 + Parameters
 
@@ -98,7 +129,250 @@ accessing the API.
 
 # Group Station
 
+These resource identifiers represent information about the Station
+resources in the corporation. Each station includes information about the
+pumps that are present at that station and the tanks holding the fuel
+that is provided by the pumps.  The revenue for a station within  a time
+period for some or all of the fuel types supplied by a station can be
+obtained.  The prices for fuel as a list over time can be obtained for
+each of the fuel types dispensed at a station.  A list of events which
+have ocurred, or which are projected to ocurr at a station can be
+obtained as well.
+
+Events which can occur at a station include the following:
+
+* pumpfail - a pump has been declared inoperative at the station
+* pumpfix  - a pump is returned to service after a fail or leak event
+* tankfail - the tank starts to operate outside of required constraints
+* tankfix  - the tank returns to operation within required constraints
+* top  - a tank has been filled at the station
+
+## Stations Collection [/stations{?start,span}]
+
+Obtain a list of all stations in the corporation.  This is a paged URI
+that can be used to obtain the entire set of information in groups of
+`span` parameter values.  If no parameters are supplied, then all
+stations are returned.
+
+### List Stations [GET]
+
++ Response 200
+
++ Response 204
+
+## Stations Search [/search/stations{?query}]
+
+Search for stations.  This returns a list of stations which meet the
+criteria supplied by the `query` parameter.  Search results consist of an
+array of individual station information, not a simple list of `stationid`
+values.
+
+### Search Stations [GET]
+
++ Response 200
+
++ Response 204
+
+## Station [/stations/{stationid}]
+
+Obtain the information for a single station.
+
+### List a single Station [GET]
+
++ Response 200
+
++ Response 404
+
+## Station Revenue [/stations/{stationid}/revenue{?from,to,fuel}]
+
+Station revenue is the amount of revenue collected from transactions at
+all pumps within the station.  The returned information includes the
+revenue obtained from the pumps at the station during the supplied
+interval.  If no interval is supplied, then all the revenue from the
+station is returned.  If the `fuel` parameter is supplied, the the
+revenue is reported for each fuel named in the parameter as a separate
+value. 
+
+### List Station Revenue [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
+
+## Station Prices [/stations/{stationid}/prices{?from,to,fuel}]
+
+Station prices are a time series of different prices.  If no `from` or
+`to` parameter is supplied, then all prices stored for a station are
+returned.  If the `fuel` parameter is supplied, the returned list is
+restricted to those types included with the parameter.
+
+### List Station Prices [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
+
+## Station Events [/stations/{stationid}/events{?from,to,type}]
+
+Station events are a time series of different event types.  If no `from`
+or `to` parameter is supplied, than all events stored for a station are
+returned.  If the `type` parameter is supplied, the returned list
+provides only the event types included for that parameter.
+
+### List Station Events [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
+
 # Group Pump
 
+These resource identifiers represent information about the pump resources
+in the corporation.  Each pump includes information about the fuel types
+that it dispenses and can provide the revenue for an interval for some
+or all of the fuel types dispensed.  A list of events that have occurred,
+or which are projected to occur, can be obtained as well.
+
+Events which can occur at a pump include the following:
+
+* pumpfail - the pump has been declared as inoperative
+* pumpfix  - the pump has been declared as operational
+
+## Pump Collection [/pumps{?start,span}]
+
+Obtain a list of all the pumps in the corporation.  This is a paged URI
+that can be used to obtain the entire set of information in groups of
+`span` parameter values.  If no parameters are supplied then all tanks
+are returned.  The returned information is an array of individual pump
+information, not simple a list of `pumpid` values.
+
+### List Pumps [GET]
+
++ Response 200
+
++ Response 204
+
+## Pumps Search [/search/pumps{?query}]
+
+Search for pumps.  This returns a list of pumps which meet the criteria
+supplied by the `query` parameter.  Search results consist of an array of
+individual pump information, not a simple list of `pumpid` values.
+
+### Search Pumps [GET]
+
++ Response 200
+
++ Response 204
+
+## Pump [/pumps/{pumpid}]
+
+Obtain the information for a single pump.
+
+### List a single Pump [GET]
+
++ Response 200
+
++ Response 404
+
+## Pump Revenue [/pumps/{pumpid}/revenue{?from,to,fuel}]
+
+Pump revenue is the amount of revenue collected from transactions at a
+single pump.  The returned information includes the revenue obtained from
+the named pump during the supplied interval.  If no interval is supplied,
+then all revenue from the pump will be reported.  If the `fuel` parameter
+is supplied, then the revenue is reported for each fuel named in the
+parameter as a separate value.
+
+### List Pump Revenue [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
+
+## Pump Events [/pumps/{pumpid}/events{?from,to,type}]
+
+Pump events are a time series of different event types.  If no `from` or
+`to` parameter is supplied then all events stored for a pump are
+returned.  If the `type` parameter is supplied the returned list contains
+only events of the types included in the parameter value.
+
+### List Pump Events [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
+
 # Group Tank
+
+These resource identifiers represent information about the tank resources
+of the corporation.  Each tank includes information about the fuel type
+it holds and its current level.  The tanks size is also included.  A list
+of events for a tank can be obtained.  These events can be historical or
+future projections.
+
+Events which can occur at a tank include the following:
+
+* tankfail - the tank starts to operate outside of required constraints
+* tankfix  - the tank returns to operation within required constraints
+* top      - a tank has been filled at the station
+
+## Tank Collection [/tanks{?start,span}]
+
+Obtain a list of all tanks in the corporation.  This is a paged URI that
+can be used to obtain the entire set of information in groups of `span`
+parameter values.  If no parameters are supplied, then all tanks are
+returned.
+
+### List Tanks [GET]
+
++ Response 200
+
++ Response 204
+
+## Tanks Search [/search/tanks{?query}]
+
+Search for tanks.  This returns a list of tanks which meet the criteria
+supplied by the `query` parameter.  Search results consist of an array of
+individual tank information, not a simple list of `tankid` values.
+
+### Search Tanks [GET]
+
++ Response 200
+
++ Response 204
+
+## Tank [/tanks/{tankid}]
+
+Obtain the information for a single tank.
+
+### Get one tank [GET]
+
++ Response 200
+
++ Response 404
+
+## Tank Events [/tanks/{tankid}/events{?from,to,type}]
+
+Tank events are a time series of different event types.  If no `from` or
+`to` parameter is supplied, then all events stored for a tank are
+returned.  If the `type` parameter is supplied, the returned list
+provides only the event types included for that parameter.
+
+### Tank Events [GET]
+
++ Response 200
+
++ Response 204
+
++ Response 404
 
