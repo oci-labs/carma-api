@@ -31,7 +31,7 @@ This header is sent when providing data in the response message.  This
 header indicates what format the data is supplied in.  As discussed in
 the data formats section above, this will be the API specific API format:
 
-        * application/prs.ociweb.api+json;profile=<schema-URL>
+        * application/prs.com.ociweb.demo.carma+json;profile=<schema-URL>
 
 where the schema defined at <schema-URL> describes the details of the
 data format.

@@ -15,7 +15,7 @@ the server.
 The API specific type for a pure JSON message content includes a required
 `profile` parameter that refers to the URI for the JSON schema definition.
 
-* `application/prs.ociweb.api+json;profile=<schema-URL>`
+* `application/prs.com.ociweb.demo.carma+json;profile=<schema-URL>`
 
     this media-type is for JSON data and includes a required `profile`
     parameter.  The `profile` parameter value is used to define the
@@ -56,7 +56,7 @@ defined in this document.
 The collection schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/collection.json`
+* `http://oci-labs.github.io/carma-api/schemas/collection.json`
 
 <!-- include(../schemas/collection.json) -->
 
@@ -65,7 +65,7 @@ value is:
 The city data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/city.json`
+* `http://oci-labs.github.io/carma-api/schemas/city.json`
 
 <!-- include(../schemas/city.json) -->
 
@@ -74,7 +74,7 @@ value is:
 The station data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/station.json`
+* `http://oci-labs.github.io/carma-api/schemas/station.json`
 
 <!-- include(../schemas/station.json) -->
 
@@ -83,7 +83,7 @@ value is:
 The pump data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/pump.json`
+* `http://oci-labs.github.io/carma-api/schemas/pump.json`
 
 <!-- include(../schemas/pump.json) -->
 
@@ -92,7 +92,7 @@ value is:
 The price data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/price.json`
+* `http://oci-labs.github.io/carma-api/schemas/price.json`
 
 <!-- include(../schemas/price.json) -->
 
@@ -101,7 +101,7 @@ value is:
 The revenue data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/revenue.json`
+* `http://oci-labs.github.io/carma-api/schemas/revenue.json`
 
 <!-- include(../schemas/revenue.json) -->
 
@@ -110,7 +110,7 @@ value is:
 The event data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/event.json`
+* `http://oci-labs.github.io/carma-api/schemas/event.json`
 
 <!-- include(../schemas/event.json) -->
 
@@ -119,7 +119,7 @@ value is:
 The tank data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/tank.json`
+* `http://oci-labs.github.io/carma-api/schemas/tank.json`
 
 <!-- include(../schemas/tank.json) -->
 
@@ -136,7 +136,7 @@ authorization to make the call.
 The error data schema description filename and the media type parameter
 value is:
 
-* `http://oci-labs.github.io/schemas/errordata.json`
+* `http://oci-labs.github.io/carma-api/schemas/errordata.json`
 
 <!-- include(../schemas/errordata.json) -->
 
