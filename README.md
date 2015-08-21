@@ -19,9 +19,13 @@ Automatic generation of API documentation is done when any commit is
 pushed to the GitHub repository for the API.
 
 If the commit message includes the string:
+
   [skip ci]
+
 or the string:
+
   [no-ci]
+
 then the generation step will be avoided.
 
 The hosted CI service from Shippable.com is used to actually execute
