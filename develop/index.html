@@ -175,7 +175,7 @@ the server.</p>
 <p>The API specific type for a pure JSON message content includes a required
 <code>profile</code> parameter that refers to the URI for the JSON schema definition.</p>
 <ul>
-<li><p><code>application/prs.ociweb.api+json;profile=&lt;schema-URL&gt;</code></p>
+<li><p><code>application/prs.com.ociweb.demo.carma+json;profile=&lt;schema-URL&gt;</code></p>
 <p>this media-type is for JSON data and includes a required <code>profile</code>
 parameter.  The <code>profile</code> parameter value is used to define the
 allowable contents of the message data.</p></li>
@@ -208,7 +208,7 @@ defined in this document.</p>
 <p>The collection schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/collection.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/collection.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -246,7 +246,7 @@ value is:</p>
 <p>The city data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/city.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/city.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -278,7 +278,7 @@ value is:</p>
 <p>The station data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/station.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/station.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -310,7 +310,7 @@ value is:</p>
 <p>The pump data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/pump.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/pump.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -342,7 +342,7 @@ value is:</p>
 <p>The price data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/price.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/price.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -374,7 +374,7 @@ value is:</p>
 <p>The revenue data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/revenue.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/revenue.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -406,7 +406,7 @@ value is:</p>
 <p>The event data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/event.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/event.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -438,7 +438,7 @@ value is:</p>
 <p>The tank data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/tank.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/tank.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -477,7 +477,7 @@ authorization to make the call.</p>
 <p>The error data schema description filename and the media type parameter
 value is:</p>
 <ul>
-<li><code>http://oci-labs.github.io/schemas/errordata.json</code></li>
+<li><code>http://oci-labs.github.io/carma-api/schemas/errordata.json</code></li>
 </ul>
 <pre><code>        {
           &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
@@ -551,7 +551,7 @@ response messages.</p>
 <p>This header is sent when providing data in the response message.  This
 header indicates what format the data is supplied in.  As discussed in
 the data formats section above, this will be the API specific API format:</p>
-<pre><code>    * application/prs.ociweb.api+json;profile=&lt;schema-URL&gt;
+<pre><code>    * application/prs.com.ociweb.demo.carma+json;profile=&lt;schema-URL&gt;
 </code></pre>
 <p>where the schema defined at &lt;schema-URL&gt; describes the details of the
 data format.</p>
@@ -676,24 +676,24 @@ beyond the end of the list.</p>
 data lists from the server.  These parameters are defined as:</p>
 <pre><code>    '??? - ???'
 </code></pre>
-</div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="city">City&nbsp;<a href="#city"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h4 id="city-cities-collection">Cities Collection&nbsp;<a href="#city-cities-collection"><i class="fa fa-link"></i></a></h4><section id="city-cities-collection-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List Cities</span></div><div style="float:left"><a href="#city-cities-collection-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#c7783d04470952a3430a5171e7efb893" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="c7783d04470952a3430a5171e7efb893" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+</div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="city">City&nbsp;<a href="#city"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><h4 id="city-cities-collection">Cities Collection&nbsp;<a href="#city-cities-collection"><i class="fa fa-link"></i></a></h4><section id="city-cities-collection-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List Cities</span></div><div style="float:left"><a href="#city-cities-collection-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#c7783d04470952a3430a5171e7efb893" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="c7783d04470952a3430a5171e7efb893" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
 
         { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"z234ave"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Saint Louis"</span>},
                     { <span class="hljs-string">"id"</span>: <span class="hljs-string">"34tgqa9"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Manhattan"</span>}
         ]}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-cities-search">Cities Search&nbsp;<a href="#city-cities-search"><i class="fa fa-link"></i></a></h4><section id="city-cities-search-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Search Cities</span></div><div style="float:left"><a href="#city-cities-search-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?search}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#5a0ceb387f93170787da42b2834566bc" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="5a0ceb387f93170787da42b2834566bc" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-cities-search">Cities Search&nbsp;<a href="#city-cities-search"><i class="fa fa-link"></i></a></h4><section id="city-cities-search-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Search Cities</span></div><div style="float:left"><a href="#city-cities-search-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities{?search}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#5a0ceb387f93170787da42b2834566bc" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="5a0ceb387f93170787da42b2834566bc" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
 
         { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"w3r0kl7"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Los Angeles"</span>},
                     { <span class="hljs-string">"id"</span>: <span class="hljs-string">"234r5ga"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Denver"</span>}
         ]}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-city">City&nbsp;<a href="#city-city"><i class="fa fa-link"></i></a></h4><section id="city-city-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single City</span></div><div style="float:left"><a href="#city-city-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8012a0a9a72d144c5c6ed42e341d283b" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8012a0a9a72d144c5c6ed42e341d283b" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section><h4 id="city-city-stations">City Stations&nbsp;<a href="#city-city-stations"><i class="fa fa-link"></i></a></h4><section id="city-city-stations-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get stations in a city</span></div><div style="float:left"><a href="#city-city-stations-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}/stations{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8c480da2307a2a82aac3ee8b49f5a4f5" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8c480da2307a2a82aac3ee8b49f5a4f5" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.ociweb.api+json; profile=http://oci-labs.github.io/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-city">City&nbsp;<a href="#city-city"><i class="fa fa-link"></i></a></h4><section id="city-city-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get a single City</span></div><div style="float:left"><a href="#city-city-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8012a0a9a72d144c5c6ed42e341d283b" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8012a0a9a72d144c5c6ed42e341d283b" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section><h4 id="city-city-stations">City Stations&nbsp;<a href="#city-city-stations"><i class="fa fa-link"></i></a></h4><section id="city-city-stations-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get stations in a city</span></div><div style="float:left"><a href="#city-city-stations-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/cities/{cityid}/stations{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#8c480da2307a2a82aac3ee8b49f5a4f5" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="8c480da2307a2a82aac3ee8b49f5a4f5" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>+ Body
 
         { <span class="hljs-string">"data"</span>: [ { <span class="hljs-string">"id"</span>: <span class="hljs-string">"seqr087"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"bob"</span>},
                     { <span class="hljs-string">"id"</span>: <span class="hljs-string">"awf084e"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"carol"</span>},
                     { <span class="hljs-string">"id"</span>: <span class="hljs-string">"q3r4a0e"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"ted"</span>},
                     { <span class="hljs-string">"id"</span>: <span class="hljs-string">"qaelija"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"alice"</span>}
         ]}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="station">Station&nbsp;<a href="#station"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="pump">Pump&nbsp;<a href="#pump"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tank">Tank&nbsp;<a href="#tank"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 20 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="station">Station&nbsp;<a href="#station"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="pump">Pump&nbsp;<a href="#pump"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tank">Tank&nbsp;<a href="#tank"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 21 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
