@@ -6,22 +6,53 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for this station",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
+                "city": {
+                  "description": "viewable city name where the station is located",
                   "type": "string"
                 },
-                "key2": {
-                  "description": "a number typed field in the data",
+                "cityid": {
+                  "description": "unique identifier of the city where this station is located",
+                  "type": "string"
+                },
+                "lat": {
+                  "description": "latitude of station location",
                   "type": "number"
                 },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
+                "lon": {
+                  "description": "longitude of station location",
+                  "type": "number"
+                },
+                "tanks": {
+                    "description": "tanks located at this station",
+                    "type": "object",
+                    "properties": {
+                      "regular": {
+                        "description": "tankid value of the regular fuel tank located at this station",
+                        "type": "string"
+                      },
+                      "premium": {
+                        "description": "tankid value of the premium fuel tank located at this station",
+                        "type": "string"
+                      },
+                      "diesel": {
+                        "description": "tankid value of the diesel fuel tank located at this station",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["regular", "premium"]
+                },
+                "pumps": {
+                  "description": "list of pumps located at this station",
+                  "type": "array",
+                  "items": {
+                    "description": "pumpId values for pump located at this station",
+                    "type": "string"
+                  }
                 }
               },
-              "required": ["id"]
+              "required": ["id", "city", "cityid", "lat", "lon", "tanks", "pumps"]
             }
 

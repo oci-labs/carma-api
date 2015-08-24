@@ -255,23 +255,35 @@ value is:</p>
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for this city&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+            &quot;order&quot;: {
+              &quot;description&quot;: &quot;externally defined ordering of this city in a list&quot;,
               &quot;type&quot;: &quot;number&quot;
             },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
+            &quot;zoom&quot;: {
+              &quot;description&quot;: &quot;initial zoom level to use when showing the city on a map&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;city&quot;: {
+              &quot;description&quot;: &quot;name of the city used for user viewable labels&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;state&quot;: {
+              &quot;description&quot;: &quot;state abbreviation for the city&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;lat&quot;: {
+              &quot;description&quot;: &quot;latitude of the city center&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;lon&quot;: {
+              &quot;description&quot;: &quot;longitude of the city center&quot;,
+              &quot;type&quot;: &quot;number&quot;
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [ &quot;id&quot;, &quot;order&quot;, &quot;zoom&quot;, &quot;city&quot;, &quot;state&quot;, &quot;lat&quot;, &quot;lon&quot; ]
         }
 </code></pre>
 <h4>Station Data</h4>
@@ -287,23 +299,54 @@ value is:</p>
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for this station&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+            &quot;city&quot;: {
+              &quot;description&quot;: &quot;viewable city name where the station is located&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+            &quot;cityid&quot;: {
+              &quot;description&quot;: &quot;unique identifier of the city where this station is located&quot;,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;lat&quot;: {
+              &quot;description&quot;: &quot;latitude of station location&quot;,
               &quot;type&quot;: &quot;number&quot;
             },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
+            &quot;lon&quot;: {
+              &quot;description&quot;: &quot;longitude of station location&quot;,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            &quot;tanks&quot;: {
+                &quot;description&quot;: &quot;tanks located at this station&quot;,
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                  &quot;regular&quot;: {
+                    &quot;description&quot;: &quot;tankid value of the regular fuel tank located at this station&quot;,
+                    &quot;type&quot;: &quot;string&quot;
+                  },
+                  &quot;premium&quot;: {
+                    &quot;description&quot;: &quot;tankid value of the premium fuel tank located at this station&quot;,
+                    &quot;type&quot;: &quot;string&quot;
+                  },
+                  &quot;diesel&quot;: {
+                    &quot;description&quot;: &quot;tankid value of the diesel fuel tank located at this station&quot;,
+                    &quot;type&quot;: &quot;string&quot;
+                  }
+                },
+                &quot;required&quot;: [&quot;regular&quot;, &quot;premium&quot;]
+            },
+            &quot;pumps&quot;: {
+              &quot;description&quot;: &quot;list of pumps located at this station&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;description&quot;: &quot;pumpId values for pump located at this station&quot;,
+                &quot;type&quot;: &quot;string&quot;
+              }
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [&quot;id&quot;, &quot;city&quot;, &quot;cityid&quot;, &quot;lat&quot;, &quot;lon&quot;, &quot;tanks&quot;, &quot;pumps&quot;]
         }
 </code></pre>
 <h4>Pump Data</h4>
@@ -319,20 +362,12 @@ value is:</p>
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for this pump&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+            &quot;stationid&quot;: {
+              &quot;description&quot;: &quot;unique identifier (reference) for the station where this pump is located&quot;,
               &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
-              &quot;type&quot;: &quot;number&quot;
-            },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
             }
           },
           &quot;required&quot;: [&quot;id&quot;]
@@ -351,23 +386,44 @@ value is:</p>
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for the station with these prices&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
-              &quot;type&quot;: &quot;number&quot;
-            },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
+            &quot;prices&quot;: {
+              &quot;description&quot;: &quot;list of prices for the station&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;properties&quot;: {
+                  &quot;fuel&quot;: {
+                    &quot;description&quot;: &quot;fuel type for these prices&quot;,
+                    &quot;enum&quot;: [&quot;regular&quot;, &quot;premium&quot;, &quot;diesel&quot;]
+                  }
+                  &quot;list&quot;: {
+                    &quot;description&quot;: &quot;list of date/price pairs&quot;,
+                    &quot;type&quot;: &quot;array&quot;,
+                    &quot;items&quot;: {
+                      &quot;description&quot;: &quot;date/price pairs&quot;,
+                      &quot;type&quot;: &quot;object&quot;,
+                      &quot;properties&quot;: {
+                        &quot;date&quot;: {
+                          &quot;description&quot;: &quot;a number typed field in the data&quot;,
+                          &quot;type&quot;: &quot;number&quot;
+                        },
+                        &quot;price&quot;: {
+                          &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
+                          &quot;type&quot;: &quot;number&quot;
+                        }
+                      },
+                      &quot;required&quot;: [&quot;date&quot;, &quot;price&quot;]
+                    }
+                  }
+                }
+              },
+              &quot;required&quot;: [&quot;fuel&quot;, &quot;list&quot;]
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [&quot;id&quot;, &quot;prices&quot;]
         }
 </code></pre>
 <h4>Revenue Data</h4>
@@ -770,7 +826,7 @@ or which are projected to occur, can be obtained as well.</p>
 </ul>
 <h4 id="pump-pump-collection">Pump Collection&nbsp;<a href="#pump-pump-collection"><i class="fa fa-link"></i></a></h4><p>Obtain a list of all the pumps in the corporation.  This is a paged URI
 that can be used to obtain the entire set of information in groups of
-<code>span</code> parameter values.  If no parameters are supplied then all tanks
+<code>span</code> parameter values.  If no parameters are supplied then all pumps
 are returned.  The returned information is an array of individual pump
 information, not simple a list of <code>pumpid</code> values.</p>
 <section id="pump-pump-collection-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List Pumps</span></div><div style="float:left"><a href="#pump-pump-collection-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/pumps{?start,span}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="pump-pumps-search">Pumps Search&nbsp;<a href="#pump-pumps-search"><i class="fa fa-link"></i></a></h4><p>Search for pumps.  This returns a list of pumps which meet the criteria
@@ -810,7 +866,7 @@ individual tank information, not a simple list of <code>tankid</code> values.</p
 <code>to</code> parameter is supplied, then all events stored for a tank are
 returned.  If the <code>type</code> parameter is supplied, the returned list
 provides only the event types included for that parameter.</p>
-<section id="tank-tank-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Tank Events</span></div><div style="float:left"><a href="#tank-tank-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/tanks/{tankid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 21 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+<section id="tank-tank-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Tank Events</span></div><div style="float:left"><a href="#tank-tank-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/tanks/{tankid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 24 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
