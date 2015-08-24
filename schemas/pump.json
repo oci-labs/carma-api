@@ -6,20 +6,12 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for this pump",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
+                "stationid": {
+                  "description": "unique identifier (reference) for the station where this pump is located",
                   "type": "string"
-                },
-                "key2": {
-                  "description": "a number typed field in the data",
-                  "type": "number"
-                },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
                 }
               },
               "required": ["id"]

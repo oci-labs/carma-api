@@ -6,22 +6,34 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for this city",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
-                  "type": "string"
-                },
-                "key2": {
-                  "description": "a number typed field in the data",
+                "order": {
+                  "description": "externally defined ordering of this city in a list",
                   "type": "number"
                 },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
+                "zoom": {
+                  "description": "initial zoom level to use when showing the city on a map",
+                  "type": "number"
+                },
+                "city": {
+                  "description": "name of the city used for user viewable labels",
+                  "type": "string"
+                },
+                "state": {
+                  "description": "state abbreviation for the city",
+                  "type": "string"
+                },
+                "lat": {
+                  "description": "latitude of the city center",
+                  "type": "number"
+                },
+                "lon": {
+                  "description": "longitude of the city center",
+                  "type": "number"
                 }
               },
-              "required": ["id"]
+              "required": [ "id", "order", "zoom", "city", "state", "lat", "lon" ]
             }
 

@@ -6,22 +6,43 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for the station with these prices",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
-                  "type": "string"
-                },
-                "key2": {
-                  "description": "a number typed field in the data",
-                  "type": "number"
-                },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
+                "prices": {
+                  "description": "list of prices for the station",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fuel": {
+                        "description": "fuel type for these prices",
+                        "enum": ["regular", "premium", "diesel"]
+                      }
+                      "list": {
+                        "description": "list of date/price pairs",
+                        "type": "array",
+                        "items": {
+                          "description": "date/price pairs",
+                          "type": "object",
+                          "properties": {
+                            "date": {
+                              "description": "a number typed field in the data",
+                              "type": "number"
+                            },
+                            "price": {
+                              "description": "a boolean typed field in the data",
+                              "type": "number"
+                            }
+                          },
+                          "required": ["date", "price"]
+                        }
+                      }
+                    }
+                  },
+                  "required": ["fuel", "list"]
                 }
               },
-              "required": ["id"]
+              "required": ["id", "prices"]
             }
 
