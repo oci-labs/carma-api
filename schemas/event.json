@@ -5,23 +5,106 @@
               "description": "Describes information about events",
               "type": "object",
               "properties": {
+                "scope": {
+                  "description": "scope of the revenue result",
+                  "enum": ["company", "city", "station", "pump","tank"]
+                },
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for the scope of the event list",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
-                  "type": "string"
-                },
-                "key2": {
-                  "description": "a number typed field in the data",
-                  "type": "number"
-                },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
+                "events": {
+                  "description": "list of events",
+                  "type": "array",
+                  "items": {
+                    "description": "type of event being reported",
+                    "type": "object",
+                    "oneOf": [
+                      { "$ref": "#/definitions/pumpfail" },
+                      { "$ref": "#/definitions/pumprepaired" },
+                      { "$ref": "#/definitions/tankleak" },
+                      { "$ref": "#/definitions/tankrepaired" },
+                      { "$ref": "#/definitions/tankfill" }
+                    ]
+                  }
                 }
               },
-              "required": ["id"]
+              "required": ["scope","id"],
+              "definitions": {
+                "pumpfail": {
+                  "properties": {
+                    "type": { "enum": ["pumpfail"] },
+                    "id": {
+                      "description": "unique identifier of the pump for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "whethis event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                },
+                "pumprepaired": {
+                  "properties": {
+                    "type": { "enum": ["pumprepaired"] },
+                    "id": {
+                      "description": "unique identifier of the pump for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                },
+                "tankleak": {
+                  "properties": {
+                    "type": { "enum": ["tankleak"] },
+                    "id": {
+                      "description": "unique identifier of the tank for this event",
+                      "type": "string"
+                    },
+                    "rate": {
+                      "description": "leakage rate that was detected",
+                      "type": "number"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","rate","when"]
+                },
+                "tankrepaired": {
+                  "properties": {
+                    "type": { "enum": ["tankrepaired"] },
+                    "id": {
+                      "description": "unique identifier of the tank for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                },
+                "tankfill": {
+                  "properties": {
+                    "type": { "enum": ["tankfill"] },
+                    "id": {
+                      "description": "unique identifier of the tank for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                }
+              }
             }
 

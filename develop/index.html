@@ -438,24 +438,28 @@ value is:</p>
           &quot;description&quot;: &quot;Describes information about revenue&quot;,
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
+            &quot;scope&quot;: {
+              &quot;description&quot;: &quot;scope of the revenue result&quot;,
+              &quot;enum&quot;: [&quot;company&quot;, &quot;city&quot;, &quot;station&quot;, &quot;pump&quot;]
+            },
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for the scope of the revenue result&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
-              &quot;type&quot;: &quot;string&quot;
+            &quot;fuel&quot;: {
+              &quot;description&quot;: &quot;fuel type for the revenue result&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;description&quot;: &quot;fuel type included in the revenue result&quot;,
+                &quot;enum&quot;: [&quot;any&quot;, &quot;regular&quot;, &quot;premium&quot;, &quot;diesel&quot;]
+              }
             },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+            &quot;amount&quot;: {
+              &quot;description&quot;: &quot;revenue amount being reported&quot;,
               &quot;type&quot;: &quot;number&quot;
-            },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [&quot;scope&quot;,&quot;id&quot;,&quot;fuel&quot;,&quot;amount&quot;]
         }
 </code></pre>
 <h4>Event Data</h4>
@@ -470,24 +474,107 @@ value is:</p>
           &quot;description&quot;: &quot;Describes information about events&quot;,
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
+            &quot;scope&quot;: {
+              &quot;description&quot;: &quot;scope of the revenue result&quot;,
+              &quot;enum&quot;: [&quot;company&quot;, &quot;city&quot;, &quot;station&quot;, &quot;pump&quot;,&quot;tank&quot;]
+            },
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for the scope of the event list&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
-              &quot;type&quot;: &quot;number&quot;
-            },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
+            &quot;events&quot;: {
+              &quot;description&quot;: &quot;list of events&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;description&quot;: &quot;type of event being reported&quot;,
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;oneOf&quot;: [
+                  { &quot;$ref&quot;: &quot;#/definitions/pumpfail&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/pumprepaired&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/tankleak&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/tankrepaired&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/tankfill&quot; }
+                ]
+              }
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [&quot;scope&quot;,&quot;id&quot;],
+          &quot;definitions&quot;: {
+            &quot;pumpfail&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;pumpfail&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the pump for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;whethis event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            },
+            &quot;pumprepaired&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;pumprepaired&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the pump for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            },
+            &quot;tankleak&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;tankleak&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the tank for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;rate&quot;: {
+                  &quot;description&quot;: &quot;leakage rate that was detected&quot;,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;rate&quot;,&quot;when&quot;]
+            },
+            &quot;tankrepaired&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;tankrepaired&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the tank for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            },
+            &quot;tankfill&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;tankfill&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the tank for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            }
+          }
         }
 </code></pre>
 <h4>Tank Data</h4>
@@ -503,23 +590,20 @@ value is:</p>
           &quot;type&quot;: &quot;object&quot;,
           &quot;properties&quot;: {
             &quot;id&quot;: {
-              &quot;description&quot;: &quot;unique identifier for this event&quot;,
+              &quot;description&quot;: &quot;unique identifier for this tank&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key1&quot;: {
-              &quot;description&quot;: &quot;a string typed field in the data&quot;,
+            &quot;stationid&quot;: {
+              &quot;description&quot;: &quot;unique identifier for the station where this tank is located&quot;,
               &quot;type&quot;: &quot;string&quot;
             },
-            &quot;key2&quot;: {
-              &quot;description&quot;: &quot;a number typed field in the data&quot;,
+            &quot;fuel&quot;: { &quot;enum&quot;: [&quot;regular&quot;, &quot;premium&quot;, &quot;diesel&quot;] },
+            &quot;capacity&quot;: {
+              &quot;description&quot;: &quot;fuel capacity of the tank&quot;,
               &quot;type&quot;: &quot;number&quot;
-            },
-            &quot;key3&quot;: {
-              &quot;description&quot;: &quot;a boolean typed field in the data&quot;,
-              &quot;type&quot;: &quot;boolean&quot;
             }
           },
-          &quot;required&quot;: [&quot;id&quot;]
+          &quot;required&quot;: [&quot;id&quot;,&quot;stationid&quot;,&quot;fuel&quot;,&quot;capacity&quot;]
         }
 </code></pre>
 <h4>Error Data</h4>
@@ -547,6 +631,29 @@ value is:</p>
             }
           },
           &quot;required&quot;: [&quot;reason&quot;]
+        }
+</code></pre>
+<h4>Id Lists</h4>
+<p>Some queries return a list of unique id values.  These are formatted as a
+list of strings.  The schema description filename and the media type
+parameter value is:</p>
+<ul>
+<li><code>http://oci-labs.github.io/carma-api/schemas/idlist.json</code></li>
+</ul>
+<pre><code>        {
+          &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#4&quot;,
+          &quot;title&quot;: &quot;IdLIst&quot;,
+          &quot;description&quot;: &quot;Contains multiple elements of unique identifiers&quot;,
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;idType&quot;: { &quot;enum&quot;: [&quot;stations&quot;,&quot;pumps&quot;,&quot;tanks&quot;] },
+            &quot;data&quot;: {
+              &quot;description&quot;: &quot;array of ids&quot;,
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: { &quot;type&quot;: &quot;string&quot; }
+            }
+          },
+          &quot;required&quot;: [&quot;idType&quot;,&quot;data&quot;]
         }
 </code></pre>
 <h2>Access Semantics</h2>
@@ -866,7 +973,7 @@ individual tank information, not a simple list of <code>tankid</code> values.</p
 <code>to</code> parameter is supplied, then all events stored for a tank are
 returned.  If the <code>type</code> parameter is supplied, the returned list
 provides only the event types included for that parameter.</p>
-<section id="tank-tank-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Tank Events</span></div><div style="float:left"><a href="#tank-tank-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/tanks/{tankid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 24 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+<section id="tank-tank-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Tank Events</span></div><div style="float:left"><a href="#tank-tank-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/tanks/{tankid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
