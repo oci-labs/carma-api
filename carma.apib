@@ -43,14 +43,16 @@ of individual city information, not a simple list of `cityid` values.
 + Parameters
 
         + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
-        + span = `20` (optional,number) ... Number of City entries to return in the response.
+        + span  = `4` (optional,number) ... Number of City entries to return in the response.
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
         + Body
 
-                { "data": [ { "id": "z234ave", "name": "Saint Louis"},
-                            { "id": "34tgqa9", "name": "Manhattan"}
+                { "data": [ { "id": "c00", "order": "0", "zoom": "4",  "city": "All Cities",   "state": "USA", "lat": "38.4039",    "lon": "-96.1817"},
+                            { "id": "c01", "order": "1", "zoom": "9",  "city": "Greenville",   "state": "SC",  "lat": "34.8526176", "lon": "-82.3940104"},
+                            { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
+                            { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
                 ]}
 
 + Response 204
@@ -65,14 +67,14 @@ individual city information and not just a simple list of `cityid` values.
 
 + Parameters
 
-        + query = `latitude>35.5` (optional,string) ... Query parameter for search.
+        + query = `state=="MI"||state=="NC"` (optional,string) ... Query parameter for search.
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
         + Body
 
-                { "data": [ { "id": "w3r0kl7", "name": "Los Angeles"},
-                            { "id": "234r5ga", "name": "Denver"}
+                { "data": [ { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
+                            { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
                 ]}
 
 + Response 204
@@ -83,7 +85,7 @@ Obtain the information for a single city.
 
 + Parameters
 
-        + cityid (required,string,`q34fa`) ... Unique identfier for the city.
+        + cityid (required,string,`c03`) ... Unique identfier for the city.
 
 ### List a single City [GET]
 
@@ -92,8 +94,13 @@ Obtain the information for a single city.
         + Body
 
                 {
-                  "id": "23rqaf4",
-                  "key1": "value1"
+                  "id": "c03",
+                  "order": "3",
+                  "zoom": "10",
+                  "city": "Cary",
+                  "state": "NC",
+                  "lat": "39.79154",
+                  "lon": "-78.7811169"
                 }
 
 + Response 404
@@ -107,20 +114,21 @@ stations will need to be obtained separately.
 
 + Parameters
 
-        + cityid (required,string,`q34fa`) ... Unique identfier for the city.
+        + cityid (required,string,`city03`) ... Unique identfier for the city.
         + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
-        + span = `20` (optional,number) ... Number of City entries to return in the response.
+        + span  = `4` (optional,number) ... Number of City entries to return in the response.
 
 ### Get stations in a city [GET]
 
-+ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/idlist.json)
 
         + Body
 
-                { "data": [ { "id": "seqr087", "name": "bob"},
-                            { "id": "awf084e", "name": "carol"},
-                            { "id": "q3r4a0e", "name": "ted"},
-                            { "id": "qaelija", "name": "alice"}
+                { "idType": "stations",
+                  "data": [ "s007",
+                            "s008",
+                            "s009",
+                            "s010"
                 ]}
 
 + Response 204
