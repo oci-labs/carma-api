@@ -29,7 +29,7 @@
                   }
                 }
               },
-              "required": ["scope","id"],
+              "required": ["scope","id","events"],
               "definitions": {
                 "pumpfail": {
                   "properties": {

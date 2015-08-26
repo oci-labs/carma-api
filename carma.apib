@@ -38,22 +38,24 @@ information in groups of `span` parameter values.  If no parameters are
 supplied, then all cities are returned.  The returned data is an array
 of individual city information, not a simple list of `cityid` values.
 
-### List Cities [GET]
+### List_Cities [GET]
 
 + Parameters
 
-        + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
-        + span  = `4` (optional,number) ... Number of City entries to return in the response.
+    + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+    + span = `20` (optional,number) ... Number of City entries to return in the response.
+
++ Request /cities?start=1;span=4
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
-        + Body
+    + Body
 
-                { "data": [ { "id": "c00", "order": "0", "zoom": "4",  "city": "All Cities",   "state": "USA", "lat": "38.4039",    "lon": "-96.1817"},
-                            { "id": "c01", "order": "1", "zoom": "9",  "city": "Greenville",   "state": "SC",  "lat": "34.8526176", "lon": "-82.3940104"},
-                            { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
-                            { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
-                ]}
+           { "data": [ { "id": "c00", "order": "0", "zoom": "4",  "city": "All Cities",   "state": "USA", "lat": "38.4039",    "lon": "-96.1817"},
+                       { "id": "c01", "order": "1", "zoom": "9",  "city": "Greenville",   "state": "SC",  "lat": "34.8526176", "lon": "-82.3940104"},
+                       { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
+                       { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
+           ]}
 
 + Response 204
 
@@ -63,19 +65,21 @@ Search for cities.  This returns a list of cities which meet the criteria
 supplied by the `query` parameter.  Search results consist of an array of
 individual city information and not just a simple list of `cityid` values.
 
-### Search Cities [GET]
-
 + Parameters
 
-        + query = `state=="MI"||state=="NC"` (optional,string) ... Query parameter for search.
+    + query (required,string) ... Query parameter for search.
+
+### Search_Cities [GET]
+
++ Request /search/cities?query=state=="MI"||state=="NC"
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
-        + Body
+    + Body
 
-                { "data": [ { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
-                            { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
-                ]}
+           { "data": [ { "id": "c02", "order": "2", "zoom": "8",  "city": "Grand Rapids", "state": "MI",  "lat": "42.9633599", "lon": "-85.6680863"},
+                       { "id": "c03", "order": "3", "zoom": "10", "city": "Cary",         "state": "NC",  "lat": "39.79154",   "lon": "-78.7811169"}
+           ]}
 
 + Response 204
 
@@ -83,25 +87,27 @@ individual city information and not just a simple list of `cityid` values.
 
 Obtain the information for a single city.
 
+### List_single_City [GET]
+
 + Parameters
 
-        + cityid (required,string,`c03`) ... Unique identfier for the city.
+    + cityid (required,string,`c03`) ... Unique identfier for the city.
 
-### List a single City [GET]
++ Request /cities/c03
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profiile=http://oci-labs.github.io/carma-api/schemas/city.json)
 
-        + Body
+    + Body
 
-                {
-                  "id": "c03",
-                  "order": "3",
-                  "zoom": "10",
-                  "city": "Cary",
-                  "state": "NC",
-                  "lat": "39.79154",
-                  "lon": "-78.7811169"
-                }
+           {
+             "id": "c03",
+             "order": "3",
+             "zoom": "10",
+             "city": "Cary",
+             "state": "NC",
+             "lat": "39.79154",
+             "lon": "-78.7811169"
+           }
 
 + Response 404
 
@@ -114,22 +120,24 @@ stations will need to be obtained separately.
 
 + Parameters
 
-        + cityid (required,string,`city03`) ... Unique identfier for the city.
-        + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
-        + span  = `4` (optional,number) ... Number of City entries to return in the response.
+    + cityid (required,string,`c03`) ... Unique identfier for the city.
+    + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+    + span = `10` (optional,number) ... Number of City entries to return in the response.
 
-### Get stations in a city [GET]
+### Get_stations_in_city [GET]
+
++ Request /cities/c03/stations?start=1;span=4
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/idlist.json)
 
-        + Body
+    + Body
 
-                { "idType": "stations",
-                  "data": [ "s007",
-                            "s008",
-                            "s009",
-                            "s010"
-                ]}
+           { "idType": "stations",
+             "data": [ "s007",
+                       "s008",
+                       "s009",
+                       "s010"
+           ]}
 
 + Response 204
 
@@ -138,14 +146,12 @@ stations will need to be obtained separately.
 # Group Station
 
 These resource identifiers represent information about the Station
-resources in the corporation. Each station includes information about the
-pumps that are present at that station and the tanks holding the fuel
-that is provided by the pumps.  The revenue for a station within  a time
-period for some or all of the fuel types supplied by a station can be
-obtained.  The prices for fuel as a list over time can be obtained for
-each of the fuel types dispensed at a station.  A list of events which
-have ocurred, or which are projected to ocurr at a station can be
-obtained as well.
+resources in the corporation. Each station includes information about
+the pumps that are present at that station and the tanks holding the
+fuel that is provided by the pumps.  The revenue for a station within
+a time period for some or all of the fuel types supplied by a station
+can be obtained.  A list of events which have ocurred, or which are
+projected to ocurr at a station can be obtained as well.
 
 Events which can occur at a station include the following:
 
@@ -162,9 +168,29 @@ that can be used to obtain the entire set of information in groups of
 `span` parameter values.  If no parameters are supplied, then all
 stations are returned.
 
-### List Stations [GET]
+### List_Stations [GET]
 
-+ Response 200
++ Parameters
+
+    + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+    + span = `10` (optional,number) ... Number of Station entries to return in the response.
+
++ Request /stations?start=1;span=3
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+           { "data": [ { "id": "s007", "cityid": "c03", "city": "Cary", "state": "NC", "lat": "35.66029077", "lon": "-79.00755913",
+                                       "tanks": { "regular": "t0021", "premium": "t0022", "diesel": "t0023"},
+                                       "pumps": ["p0631", "p0849", "p1359", "p1775", "p2589", "p2670", "p3857", "p3927", "p5119", "p5570", "p6126", "p6885"]},
+                       { "id": "s008", "cityid": "c03", "city": "Cary", "state": "NC", "lat": "35.5318045", "lon": "-78.92016643",
+                                       "tanks": { "regular": "t0024", "premium": "t0025", "diesel": "t0026"},
+                                       "pumps": ["p0508", "p1823", "p2123", "p2755", "p4224", "p4636", "p5453", "p6088", "p6831"]},
+                       { "id": "s009", "cityid": "c03", "city": "Cary", "state": "NC", "lat": "35.80762049", "lon": "-78.506764",
+                                       "tanks": { "regular": "t0027", "premium": "t0028", "diesel": "t0029"},
+                                       "pumps": ["p0365", "p0633", "p0944", "p1633", "p2054", "p2518", "p3187", "p3239", "p3682", "p4960", "p5127", "p5959", "p6023", "p6212"]},
+           ]}
 
 + Response 204
 
@@ -175,9 +201,22 @@ criteria supplied by the `query` parameter.  Search results consist of an
 array of individual station information, not a simple list of `stationid`
 values.
 
-### Search Stations [GET]
+### Search_Stations [GET]
 
-+ Response 200
++ Parameters
+
+    + query (required,string,`tanks.premium==t0025`) ... Query parameter for search.
+
++ Request /search/stations?query=tanks.premium=="t0025"
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+        { "data": [ { "id": "s008", "cityid": "c03", "city": "Cary", "state": "NC", "lat": "35.5318045", "lon": "-78.92016643",
+                                    "tanks": { "regular": "t0024", "premium": "t0025", "diesel": "t0026"},
+                                    "pumps": ["p0508", "p1823", "p2123", "p2755", "p4224", "p4636", "p5453", "p6088", "p6831"]}
+        ]}
 
 + Response 204
 
@@ -185,9 +224,30 @@ values.
 
 Obtain the information for a single station.
 
-### List a single Station [GET]
+### List_single_Station [GET]
 
-+ Response 200
++ Parameters
+
+    + stationid (required,string,`t0025`) ... Unique identfier for the station.
+
++ Request /stations/s008
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/station.json)
+
+    + Body
+
+        { "id": "s008",
+          "cityid": "c03",
+          "city": "Cary",
+          "state": "NC",
+          "lat": "35.5318045",
+          "lon": "-78.92016643",
+          "tanks": { "regular": "t0024",
+                     "premium": "t0025",
+                     "diesel": "t0026"
+          },
+          "pumps": ["p0508", "p1823", "p2123", "p2755", "p4224", "p4636", "p5453", "p6088", "p6831"]
+        }
 
 + Response 404
 
@@ -201,24 +261,28 @@ station is returned.  If the `fuel` parameter is supplied, the the
 revenue is reported for each fuel named in the parameter as a separate
 value. 
 
-### List Station Revenue [GET]
++ Parameters
 
-+ Response 200
+    + from = `first` (optional,string) ... date string for the start of the period to collect revenue.
+    + to = `today` (optional,string) ... date string for the end of the period to collect revenue.
+    + fuel = `all` (optional,string) ... selection of one or more fuels to gather revenue amounts for.
 
-+ Response 204
+### List_Station_Revenue [GET]
 
-+ Response 404
++ Request /stations/s007/revenue?from=last%20week;to=today;fuel=diesel
 
-## Station Prices [/stations/{stationid}/prices{?from,to,fuel}]
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/revenue.json)
 
-Station prices are a time series of different prices.  If no `from` or
-`to` parameter is supplied, then all prices stored for a station are
-returned.  If the `fuel` parameter is supplied, the returned list is
-restricted to those types included with the parameter.
+    + Body
 
-### List Station Prices [GET]
-
-+ Response 200
+        {
+          "scope": "station",
+          "id": "s007",
+          "fuel": "diesel",
+          "from": "1440020024",
+          "to": "1440624832",
+          "amount": "23756.32"
+        }
 
 + Response 204
 
@@ -231,9 +295,31 @@ or `to` parameter is supplied, than all events stored for a station are
 returned.  If the `type` parameter is supplied, the returned list
 provides only the event types included for that parameter.
 
-### List Station Events [GET]
++ Parameters
 
-+ Response 200
+    + from = `first` (optional,string) ... date string for the start of the period to report events.
+    + to = `today` (optional,string) ... date string for the end of the period to report events.
+    + type = `all` (optional,string) ... selection of one or more event types to report events for.
+
+### List_Station_Events [GET]
+
++ Request /stations/s007/events?from=last%20week;to=today;type=all
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
+
+    + Body
+
+        {
+          "scope": "station",
+          "id": "s007",
+          "events": [
+            { "type": "pumpfail", "id": "p0849", "when": "1440019521" },
+            { "type": "pumprepaired", "id": "p0849", "when": "1440278764" },
+            { "type": "tankfill", "id": "t0021", "when": "1440392400" },
+            { "type": "tankfill", "id": "t0022", "when": "1440392400" },
+            { "type": "tankfill", "id": "t0023", "when": "1440392400" }
+          ]
+        }
 
 + Response 204
 
@@ -250,7 +336,7 @@ or which are projected to occur, can be obtained as well.
 Events which can occur at a pump include the following:
 
 * pumpfail - the pump has been declared as inoperative
-* pumpfix  - the pump has been declared as operational
+* pumprepaired - the pump has been declared as operational
 
 ## Pump Collection [/pumps{?start,span}]
 
@@ -260,9 +346,23 @@ that can be used to obtain the entire set of information in groups of
 are returned.  The returned information is an array of individual pump
 information, not simple a list of `pumpid` values.
 
-### List Pumps [GET]
+### List_Pumps [GET]
 
-+ Response 200
++ Parameters
+
+    + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+    + span = `10` (optional,number) ... Number of Station entries to return in the response.
+
++ Request /stations?start=1359;span=3
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+        { "data": [ { "id": "p1359", "stationid": "s007" },
+                    { "id": "p1360", "stationid": "s485" },
+                    { "id": "p1361", "stationid": "s043" }
+        ]}
 
 + Response 204
 
@@ -272,9 +372,31 @@ Search for pumps.  This returns a list of pumps which meet the criteria
 supplied by the `query` parameter.  Search results consist of an array of
 individual pump information, not a simple list of `pumpid` values.
 
-### Search Pumps [GET]
+### Search_Pumps [GET]
 
-+ Response 200
++ Parameters
+
+    + query (required,string,`stationid==s007`) ... Query parameter for search.
+
++ Request /stations?query=stationid=s007
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+        { "data": [ { "id": "p0631", "stationid": "s007" },
+                    { "id": "p0849", "stationid": "s007" },
+                    { "id": "p1359", "stationid": "s007" },
+                    { "id": "p1775", "stationid": "s007" },
+                    { "id": "p2589", "stationid": "s007" },
+                    { "id": "p2670", "stationid": "s007" },
+                    { "id": "p3857", "stationid": "s007" },
+                    { "id": "p3927", "stationid": "s007" },
+                    { "id": "p5119", "stationid": "s007" },
+                    { "id": "p5570", "stationid": "s007" },
+                    { "id": "p6126", "stationid": "s007" },
+                    { "id": "p6885", "stationid": "s007" }
+        ]}
 
 + Response 204
 
@@ -282,7 +404,21 @@ individual pump information, not a simple list of `pumpid` values.
 
 Obtain the information for a single pump.
 
-### List a single Pump [GET]
+### List_single_Pump [GET]
+
++ Parameters
+
+    + pumpid (required,string,`p1775`) ... Unique identfier for the pump.
+
++ Request /pumps/p1775
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/pump.json)
+
+    + Body
+
+        { "id": "p1775",
+          "stationid": "s007"
+        }
 
 + Response 200
 
@@ -297,9 +433,28 @@ then all revenue from the pump will be reported.  If the `fuel` parameter
 is supplied, then the revenue is reported for each fuel named in the
 parameter as a separate value.
 
-### List Pump Revenue [GET]
+### List_Pump_Revenue [GET]
 
-+ Response 200
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to collect revenue.
+    + to = `today` (optional,string) ... date string for the end of the period to collect revenue.
+    + fuel = `all` (optional,string) ... selection of one or more fuels to gather revenue amounts for.
+
++ Request /pumps/p1775/revenue?from=last%20week;to=today;fuel=regular
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/revenue.json)
+
+    + Body
+
+        {
+          "scope": "pump",
+          "id": "p1775",
+          "fuel": "regular",
+          "from": "1440020024",
+          "to": "1440624832",
+          "amount": "2375.25"
+        }
 
 + Response 204
 
@@ -312,9 +467,28 @@ Pump events are a time series of different event types.  If no `from` or
 returned.  If the `type` parameter is supplied the returned list contains
 only events of the types included in the parameter value.
 
-### List Pump Events [GET]
+### List_Pump_Events [GET]
 
-+ Response 200
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to report events.
+    + to = `today` (optional,string) ... date string for the end of the period to report events.
+    + type = `all` (optional,string) ... selection of one or more event types to report events for.
+
++ Request /pumps/p0849/events?from=last%20week;to=today;type=all
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
+
+    + Body
+
+        {
+          "scope": "pump",
+          "id": "p0849",
+          "events": [
+            { "type": "pumpfail", "id": "p0849", "when": "1440019521" },
+            { "type": "pumprepaired", "id": "p0849", "when": "1440278764" }
+          ]
+        }
 
 + Response 204
 
@@ -341,7 +515,23 @@ can be used to obtain the entire set of information in groups of `span`
 parameter values.  If no parameters are supplied, then all tanks are
 returned.
 
-### List Tanks [GET]
+### List_Tanks [GET]
+
++ Parameters
+
+    + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
+    + span = `10` (optional,number) ... Number of Station entries to return in the response.
+
++ Request /tanks?start=21;span=3
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+        { "data": [ { "id": "t0021", "stationid": "s007", "fuel": "regular", "capacity": "20000" },
+                    { "id": "t0022", "stationid": "s007", "fuel": "premium", "capacity": "20000" },
+                    { "id": "t0023", "stationid": "s007", "fuel": "diesel",  "capacity": "16000" }
+        ]}
 
 + Response 200
 
@@ -353,9 +543,20 @@ Search for tanks.  This returns a list of tanks which meet the criteria
 supplied by the `query` parameter.  Search results consist of an array of
 individual tank information, not a simple list of `tankid` values.
 
-### Search Tanks [GET]
+### Search_Tanks [GET]
 
-+ Response 200
++ Parameters
+
+    + query (required,string,`stationid=="s007"&&fuel=="diesel"`) ... Query parameter for search.
+
++ Request /search/tanks?query=id==t0022
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
+
+    + Body
+
+        { "data": [ { "id": "t0022", "stationid": "s007", "fuel": "premium", "capacity": "20000" }
+        ]}
 
 + Response 204
 
@@ -363,9 +564,23 @@ individual tank information, not a simple list of `tankid` values.
 
 Obtain the information for a single tank.
 
-### Get one tank [GET]
+### Get_tank [GET]
 
-+ Response 200
++ Parameters
+
+    + tankid (required,string,`t0022`) ... Unique identfier for the tank.
+
++ Request /tanks/t0022
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/tank.json)
+
+    + Body
+
+        { "id": "t0022",
+          "stationid": "s007",
+          "fuel": "premium",
+          "capacity": "20000"
+        },
 
 + Response 404
 
@@ -376,9 +591,27 @@ Tank events are a time series of different event types.  If no `from` or
 returned.  If the `type` parameter is supplied, the returned list
 provides only the event types included for that parameter.
 
-### Tank Events [GET]
+### List_Tank_Events [GET]
 
-+ Response 200
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to report events.
+    + to = `today` (optional,string) ... date string for the end of the period to report events.
+    + type = `all` (optional,string) ... selection of one or more event types to report events for.
+
++ Request /tanks/t0022/events?from=last%20week;to=today;type=all
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
+
+    + Body
+
+        {
+          "scope": "tank",
+          "id": "t0022",
+          "events": [
+            { "type": "tankfill", "id": "t0022", "when": "1440392400" }
+          ]
+        }
 
 + Response 204
 
