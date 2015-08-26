@@ -87,15 +87,6 @@ value is:
 
 <!-- include(../schemas/pump.json) -->
 
-#### Price Data
-
-The price data schema description filename and the media type parameter
-value is:
-
-* `http://oci-labs.github.io/carma-api/schemas/price.json`
-
-<!-- include(../schemas/price.json) -->
-
 #### Revenue Data
 
 The revenue data schema description filename and the media type parameter
