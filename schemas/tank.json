@@ -6,22 +6,19 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "description": "unique identifier for this event",
+                  "description": "unique identifier for this tank",
                   "type": "string"
                 },
-                "key1": {
-                  "description": "a string typed field in the data",
+                "stationid": {
+                  "description": "unique identifier for the station where this tank is located",
                   "type": "string"
                 },
-                "key2": {
-                  "description": "a number typed field in the data",
+                "fuel": { "enum": ["regular", "premium", "diesel"] },
+                "capacity": {
+                  "description": "fuel capacity of the tank",
                   "type": "number"
-                },
-                "key3": {
-                  "description": "a boolean typed field in the data",
-                  "type": "boolean"
                 }
               },
-              "required": ["id"]
+              "required": ["id","stationid","fuel","capacity"]
             }
 

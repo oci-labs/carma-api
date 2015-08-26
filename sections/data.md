@@ -140,4 +140,14 @@ value is:
 
 <!-- include(../schemas/errordata.json) -->
 
+#### Id Lists
+
+Some queries return a list of unique id values.  These are formatted as a
+list of strings.  The schema description filename and the media type
+parameter value is:
+
+* `http://oci-labs.github.io/carma-api/schemas/idlist.json`
+
+<!-- include(../schemas/idlist.json) -->
+
 
