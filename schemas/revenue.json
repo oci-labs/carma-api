@@ -21,6 +21,14 @@
                     "enum": ["any", "regular", "premium", "diesel"]
                   }
                 },
+                "from": {
+                  "description": "timestamp at beginning of interval for which revenue was collected",
+                  "type": "string"
+                },
+                "to": {
+                  "description": "timestamp at end of interval for which revenue was collected",
+                  "type": "string"
+                },
                 "amount": {
                   "description": "revenue amount being reported",
                   "type": "number"
