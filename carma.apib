@@ -67,7 +67,7 @@ individual city information and not just a simple list of `cityid` values.
 
 + Parameters
 
-    + query (required,string) ... Query parameter for search.
+    + query (required,string,`state=="MI"`) ... Query parameter for search.
 
 ### Search_Cities [GET]
 
@@ -155,11 +155,13 @@ projected to ocurr at a station can be obtained as well.
 
 Events which can occur at a station include the following:
 
-* pumpfail - a pump has been declared inoperative at the station
-* pumpfix  - a pump is returned to service after a fail or leak event
-* tankfail - the tank starts to operate outside of required constraints
-* tankfix  - the tank returns to operation within required constraints
-* top  - a tank has been filled at the station
+* pumpfail - a pump has been detected as being inoperative at the station
+* pumpactive  - a pump is returned to service after being inactive
+* pumpinactive  - a pump is removed from service due to scheduled maintenance
+* tankfail - a tank has been detected as operating outside of required constraints
+* tankactive  - a tank is returned to service within required constraints
+* tankinactive  - a tank is removed from service due to scheduled maintenance
+* tankfill  - a tank has been filled at the station
 
 ## Stations Collection [/stations{?start,span}]
 
@@ -314,7 +316,7 @@ provides only the event types included for that parameter.
           "id": "s007",
           "events": [
             { "type": "pumpfail", "id": "p0849", "when": "1440019521" },
-            { "type": "pumprepaired", "id": "p0849", "when": "1440278764" },
+            { "type": "pumpactive", "id": "p0849", "when": "1440278764" },
             { "type": "tankfill", "id": "t0021", "when": "1440392400" },
             { "type": "tankfill", "id": "t0022", "when": "1440392400" },
             { "type": "tankfill", "id": "t0023", "when": "1440392400" }
@@ -335,8 +337,9 @@ or which are projected to occur, can be obtained as well.
 
 Events which can occur at a pump include the following:
 
-* pumpfail - the pump has been declared as inoperative
-* pumprepaired - the pump has been declared as operational
+* pumpfail - a pump has been detected as being inoperative at the station
+* pumpactive  - a pump is returned to service after being inactive
+* pumpinactive  - a pump is removed from service due to scheduled maintenance
 
 ## Pump Collection [/pumps{?start,span}]
 
@@ -486,7 +489,7 @@ only events of the types included in the parameter value.
           "id": "p0849",
           "events": [
             { "type": "pumpfail", "id": "p0849", "when": "1440019521" },
-            { "type": "pumprepaired", "id": "p0849", "when": "1440278764" }
+            { "type": "pumpactive", "id": "p0849", "when": "1440278764" }
           ]
         }
 
@@ -504,9 +507,10 @@ future projections.
 
 Events which can occur at a tank include the following:
 
-* tankfail - the tank starts to operate outside of required constraints
-* tankfix  - the tank returns to operation within required constraints
-* top      - a tank has been filled at the station
+* tankfail - a tank has been detected as operating outside of required constraints
+* tankactive  - a tank is returned to service within required constraints
+* tankinactive  - a tank is removed from service due to scheduled maintenance
+* tankfill  - a tank has been filled at the station
 
 ## Tank Collection [/tanks{?start,span}]
 

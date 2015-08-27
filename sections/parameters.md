@@ -19,30 +19,30 @@ for example).
 URI parameters are individual path elements in the URI.  These parameters
 are not combined in this API, so each parameter stands on its own.
 
-#### Cities Id
+#### cityid
 
-The {citiesid} parameter is a string value that is used to uniquely
+The {cityid} parameter is a string value that is used to uniquely
 identify each available cities resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.
 
-#### Stations Id
+#### stationid
 
-The {stationsid} parameter is a string value that is used to uniquely
+The {stationid} parameter is a string value that is used to uniquely
 identify each available stations resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.
 
-#### Pumps Id
+#### pumpid
 
-The {pumpsid} parameter is a string value that is used to uniquely
+The {pumpid} parameter is a string value that is used to uniquely
 identify each available pumps resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.
 
-#### Tanks Id
+#### tankid
 
-The {tanksid} parameter is a string value that is used to uniquely
+The {tankid} parameter is a string value that is used to uniquely
 identify each available tanks resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.
@@ -86,4 +86,37 @@ beyond the end of the list.
 When a search URI is used, the `query` parameter is used to specify the
 criteria for the search.  The value of this parameter corresponds to the
 'WHERE' clause of an SQL 'SELECT' statement.
+
+#### from
+
+The `from` parameter is a string version of a date/time used to specify
+the starting time of an interval.  This can be either a standard date
+format, a relative date format, or a numeric value representing the
+number of seconds since the epoch (01-01-1970).  The special value of
+"first" is used to indicate the oldest available data in storage.
+
+#### to
+
+The `to` parameter is a string version of a date/time used to specify the
+ending time of an interval.  This can be either a standard date format,
+a relative date format, or a numeric value representing the number of
+seconds since the epoch (01-01-1970).  The special value of "last" is
+used to indicate the latest (possibly future) date available in storage.
+
+#### fuel
+
+The `fuel` parameter is used to restrict the amount of data returned in a
+list when requesting information about revenue.  It has the special value
+of "all" that indicates that all fuels should be considered.
+
+#### type
+
+The `type` parameter indicates which single or multiple events types are
+to be included in a returned list of events.  The event types can include
+the special value of "all" which indicates all events will be included.
+"all" is also the default value, so the lack of this parameter is the same
+as specifying "all".  Values, other than "all" which are accepted include:
+"pumpfail", "pumpactive", "pumpinactive", "tankleak", "tankactive",
+"tankinacive", and "tankfill".  More than one event type can be specified
+by including them as a comma separated list of types.
 
