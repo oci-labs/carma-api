@@ -21,9 +21,11 @@
                     "type": "object",
                     "oneOf": [
                       { "$ref": "#/definitions/pumpfail" },
-                      { "$ref": "#/definitions/pumprepaired" },
+                      { "$ref": "#/definitions/pumpactive" },
+                      { "$ref": "#/definitions/pumpinactive" },
                       { "$ref": "#/definitions/tankleak" },
-                      { "$ref": "#/definitions/tankrepaired" },
+                      { "$ref": "#/definitions/tankactive" },
+                      { "$ref": "#/definitions/tankinactive" },
                       { "$ref": "#/definitions/tankfill" }
                     ]
                   }
@@ -45,7 +47,21 @@
                   },
                   "required": ["type","id","when"]
                 },
-                "pumprepaired": {
+                "pumpactive": {
+                  "properties": {
+                    "type": { "enum": ["pumprepaired"] },
+                    "id": {
+                      "description": "unique identifier of the pump for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                },
+                "pumpinactive": {
                   "properties": {
                     "type": { "enum": ["pumprepaired"] },
                     "id": {
@@ -77,7 +93,21 @@
                   },
                   "required": ["type","id","rate","when"]
                 },
-                "tankrepaired": {
+                "tankactive": {
+                  "properties": {
+                    "type": { "enum": ["tankrepaired"] },
+                    "id": {
+                      "description": "unique identifier of the tank for this event",
+                      "type": "string"
+                    },
+                    "when": {
+                      "description": "when this event occurred",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type","id","when"]
+                },
+                "tankinactive": {
                   "properties": {
                     "type": { "enum": ["tankrepaired"] },
                     "id": {
