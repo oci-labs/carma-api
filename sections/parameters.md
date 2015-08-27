@@ -4,7 +4,7 @@
 The Carmageddon Back End ReST API uses parameters in the formation
 of URIs in order to specialize the method calls.  These parameters are
 either direct URI parameters, part of the URI path, or query parameters -
-added to the end of the path after a '?' symbol and separated with ';'
+added to the end of the path after a '?' symbol and separated with '&'
 symbols if more than one.
 
 ### URI Parameters
@@ -53,7 +53,7 @@ The query parameters used by the API are used when accessing a collection
 for reading and used to restrict the access to a subset of the available
 data.  These parameters will occur after the URI path, separated from the
 path by a '?' symbol, and if more than one is present they will be
-separated with a ';' symbol.
+separated with a '&' symbol.
 
 These parameters are of the form:
 

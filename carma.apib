@@ -45,7 +45,7 @@ of individual city information, not a simple list of `cityid` values.
     + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
     + span = `20` (optional,number) ... Number of City entries to return in the response.
 
-+ Request /cities?start=1;span=4
++ Request /cities?start=1&span=4
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
@@ -126,7 +126,7 @@ stations will need to be obtained separately.
 
 ### Get_stations_in_city [GET]
 
-+ Request /cities/c03/stations?start=1;span=4
++ Request /cities/c03/stations?start=1&span=4
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/idlist.json)
 
@@ -177,7 +177,7 @@ stations are returned.
     + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
     + span = `10` (optional,number) ... Number of Station entries to return in the response.
 
-+ Request /stations?start=1;span=3
++ Request /stations?start=1&span=3
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
@@ -271,7 +271,7 @@ value.
 
 ### List_Station_Revenue [GET]
 
-+ Request /stations/s007/revenue?from=last%20week;to=today;fuel=diesel
++ Request /stations/s007/revenue?from=last%20week&to=today&fuel=diesel
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/revenue.json)
 
@@ -305,7 +305,7 @@ provides only the event types included for that parameter.
 
 ### List_Station_Events [GET]
 
-+ Request /stations/s007/events?from=last%20week;to=today;type=all
++ Request /stations/s007/events?from=last%20week&to=today&type=all
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
 
@@ -356,7 +356,7 @@ information, not simple a list of `pumpid` values.
     + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
     + span = `10` (optional,number) ... Number of Station entries to return in the response.
 
-+ Request /stations?start=1359;span=3
++ Request /stations?start=1359&span=3
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
@@ -444,7 +444,7 @@ parameter as a separate value.
     + to = `today` (optional,string) ... date string for the end of the period to collect revenue.
     + fuel = `all` (optional,string) ... selection of one or more fuels to gather revenue amounts for.
 
-+ Request /pumps/p1775/revenue?from=last%20week;to=today;fuel=regular
++ Request /pumps/p1775/revenue?from=last%20week&to=today&fuel=regular
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/revenue.json)
 
@@ -478,7 +478,7 @@ only events of the types included in the parameter value.
     + to = `today` (optional,string) ... date string for the end of the period to report events.
     + type = `all` (optional,string) ... selection of one or more event types to report events for.
 
-+ Request /pumps/p0849/events?from=last%20week;to=today;type=all
++ Request /pumps/p0849/events?from=last%20week&to=today&type=all
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
 
@@ -526,7 +526,7 @@ returned.
     + start = `1` (optional,number) ... Numeric index of the first location to return in the response.
     + span = `10` (optional,number) ... Number of Station entries to return in the response.
 
-+ Request /tanks?start=21;span=3
++ Request /tanks?start=21&span=3
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json)
 
@@ -603,7 +603,7 @@ provides only the event types included for that parameter.
     + to = `today` (optional,string) ... date string for the end of the period to report events.
     + type = `all` (optional,string) ... selection of one or more event types to report events for.
 
-+ Request /tanks/t0022/events?from=last%20week;to=today;type=all
++ Request /tanks/t0022/events?from=last%20week&to=today&type=all
 
 + Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json)
 
