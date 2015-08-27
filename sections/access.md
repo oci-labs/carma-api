@@ -24,7 +24,7 @@ method call that indicate the starting index (`start`) and number of
 entries (`span`) to return.  The starting index is the offset in the
 entire list from the first entry.  For example, calling
 
-        GET /stations?start=51;span=50
+        GET /collection?start=51;span=50
 
 will return the second 50 elements of the '/stations' resource that
 are available.  Clients should be aware that if the resource collection
@@ -43,5 +43,9 @@ the HTTP GET method at a URI relative to the resource being searched for.
 Access from search is restricted to reading and effectively returns
 those records that meet the search criteria.
 
-Search URIs will be formed similar to: /collection?search=<query>
+Search URIs will be formed similar to:
+
+        GET /search/collection?query=<query-string>
+
+Query string formats have not been finalized at this time.
 
