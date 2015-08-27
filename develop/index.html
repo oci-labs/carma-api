@@ -445,9 +445,11 @@ value is:</p>
                 &quot;type&quot;: &quot;object&quot;,
                 &quot;oneOf&quot;: [
                   { &quot;$ref&quot;: &quot;#/definitions/pumpfail&quot; },
-                  { &quot;$ref&quot;: &quot;#/definitions/pumprepaired&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/pumpactive&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/pumpinactive&quot; },
                   { &quot;$ref&quot;: &quot;#/definitions/tankleak&quot; },
-                  { &quot;$ref&quot;: &quot;#/definitions/tankrepaired&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/tankactive&quot; },
+                  { &quot;$ref&quot;: &quot;#/definitions/tankinactive&quot; },
                   { &quot;$ref&quot;: &quot;#/definitions/tankfill&quot; }
                 ]
               }
@@ -469,7 +471,21 @@ value is:</p>
               },
               &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
             },
-            &quot;pumprepaired&quot;: {
+            &quot;pumpactive&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;pumprepaired&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the pump for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            },
+            &quot;pumpinactive&quot;: {
               &quot;properties&quot;: {
                 &quot;type&quot;: { &quot;enum&quot;: [&quot;pumprepaired&quot;] },
                 &quot;id&quot;: {
@@ -501,7 +517,21 @@ value is:</p>
               },
               &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;rate&quot;,&quot;when&quot;]
             },
-            &quot;tankrepaired&quot;: {
+            &quot;tankactive&quot;: {
+              &quot;properties&quot;: {
+                &quot;type&quot;: { &quot;enum&quot;: [&quot;tankrepaired&quot;] },
+                &quot;id&quot;: {
+                  &quot;description&quot;: &quot;unique identifier of the tank for this event&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;when&quot;: {
+                  &quot;description&quot;: &quot;when this event occurred&quot;,
+                  &quot;type&quot;: &quot;string&quot;
+                }
+              },
+              &quot;required&quot;: [&quot;type&quot;,&quot;id&quot;,&quot;when&quot;]
+            },
+            &quot;tankinactive&quot;: {
               &quot;properties&quot;: {
                 &quot;type&quot;: { &quot;enum&quot;: [&quot;tankrepaired&quot;] },
                 &quot;id&quot;: {
@@ -630,7 +660,7 @@ before the entire set of data has been received.</p>
 method call that indicate the starting index (<code>start</code>) and number of
 entries (<code>span</code>) to return.  The starting index is the offset in the
 entire list from the first entry.  For example, calling</p>
-<pre><code>    GET /stations?start=51;span=50
+<pre><code>    GET /collection?start=51;span=50
 </code></pre>
 <p>will return the second 50 elements of the ‘/stations’ resource that
 are available.  Clients should be aware that if the resource collection
@@ -645,7 +675,10 @@ as the next element in the URI path:</p>
 the HTTP GET method at a URI relative to the resource being searched for.
 Access from search is restricted to reading and effectively returns
 those records that meet the search criteria.</p>
-<p>Search URIs will be formed similar to: /collection?search=<query></p>
+<p>Search URIs will be formed similar to:</p>
+<pre><code>    GET /search/collection?query=&lt;query-string&gt;
+</code></pre>
+<p>Query string formats have not been finalized at this time.</p>
 <h2>HTTP Headers</h2>
 <p>The Carmageddon Back End ReST API requires and allows certain HTTP
 headers to be present in the request messages and provides headers in
@@ -669,7 +702,7 @@ response messages.</p>
 <p>This header is sent when providing data in the response message.  This
 header indicates what format the data is supplied in.  As discussed in
 the data formats section above, this will be the API specific API format:</p>
-<pre><code>    * application/prs.com.ociweb.demo.carma+json;profile=&lt;schema-URL&gt;
+<pre><code>    Content-Type: application/prs.com.ociweb.demo.carma+json;profile=&lt;schema-URL&gt;
 </code></pre>
 <p>where the schema defined at &lt;schema-URL&gt; describes the details of the
 data format.</p>
@@ -743,23 +776,23 @@ identifier for another (do not use a station Id to access a pump Id
 for example).</p>
 <p>URI parameters are individual path elements in the URI.  These parameters
 are not combined in this API, so each parameter stands on its own.</p>
-<h4>Cities Id</h4>
-<p>The {citiesid} parameter is a string value that is used to uniquely
+<h4>cityid</h4>
+<p>The {cityid} parameter is a string value that is used to uniquely
 identify each available cities resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.</p>
-<h4>Stations Id</h4>
-<p>The {stationsid} parameter is a string value that is used to uniquely
+<h4>stationid</h4>
+<p>The {stationid} parameter is a string value that is used to uniquely
 identify each available stations resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.</p>
-<h4>Pumps Id</h4>
-<p>The {pumpsid} parameter is a string value that is used to uniquely
+<h4>pumpid</h4>
+<p>The {pumpid} parameter is a string value that is used to uniquely
 identify each available pumps resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.</p>
-<h4>Tanks Id</h4>
-<p>The {tanksid} parameter is a string value that is used to uniquely
+<h4>tankid</h4>
+<p>The {tankid} parameter is a string value that is used to uniquely
 identify each available tanks resource.  There should be no meaning
 attributed to the parameter value; specifically the value cannot be used
 as an index into lists or the dataset.</p>
@@ -793,6 +826,31 @@ beyond the end of the list.</p>
 <p>When a search URI is used, the <code>query</code> parameter is used to specify the
 criteria for the search.  The value of this parameter corresponds to the
 ‘WHERE’ clause of an SQL ‘SELECT’ statement.</p>
+<h4>from</h4>
+<p>The <code>from</code> parameter is a string version of a date/time used to specify
+the starting time of an interval.  This can be either a standard date
+format, a relative date format, or a numeric value representing the
+number of seconds since the epoch (01-01-1970).  The special value of
+“first” is used to indicate the oldest available data in storage.</p>
+<h4>to</h4>
+<p>The <code>to</code> parameter is a string version of a date/time used to specify the
+ending time of an interval.  This can be either a standard date format,
+a relative date format, or a numeric value representing the number of
+seconds since the epoch (01-01-1970).  The special value of “last” is
+used to indicate the latest (possibly future) date available in storage.</p>
+<h4>fuel</h4>
+<p>The <code>fuel</code> parameter is used to restrict the amount of data returned in a
+list when requesting information about revenue.  It has the special value
+of “all” that indicates that all fuels should be considered.</p>
+<h4>type</h4>
+<p>The <code>type</code> parameter indicates which single or multiple events types are
+to be included in a returned list of events.  The event types can include
+the special value of “all” which indicates all events will be included.
+“all” is also the default value, so the lack of this parameter is the same
+as specifying &quot;all&quot;.  Values, other than “all” which are accepted include:
+&quot;pumpfail&quot;, &quot;pumpactive&quot;, &quot;pumpinactive&quot;, &quot;tankleak&quot;, &quot;tankactive&quot;,
+&quot;tankinacive&quot;, and &quot;tankfill&quot;.  More than one event type can be specified
+by including them as a comma separated list of types.</p>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="city">City&nbsp;<a href="#city"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>These resource identifiers represent information about the City resources
 of the corporation.  Cities have information about their location and an
 intial zoom level when viewing the location on a map.  Each city also has
@@ -814,7 +872,7 @@ of individual city information, not a simple list of <code>cityid</code> values.
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="city-cities-search">Cities Search&nbsp;<a href="#city-cities-search"><i class="fa fa-link"></i></a></h4><p>Search for cities.  This returns a list of cities which meet the criteria
 supplied by the <code>query</code> parameter.  Search results consist of an array of
 individual city information and not just a simple list of <code>cityid</code> values.</p>
-<section id="city-cities-search-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Search_Cities</span></div><div style="float:left"><a href="#city-cities-search-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/search/cities{?query}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>query</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>Query parameter for search.</p>
+<section id="city-cities-search-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Search_Cities</span></div><div style="float:left"><a href="#city-cities-search-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/search/cities{?query}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>query</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>state==&quot;MI&quot;</span></span><p>Query parameter for search.</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>/search/cities?query=state==&quot;MI&quot;||state==&quot;NC&quot;</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#82bbe56ac135ebb590b57e32eb197c0d" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="82bbe56ac135ebb590b57e32eb197c0d" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/collection.json</span><br></code></pre><h5>Body</h5><pre><code>   { "<span class="hljs-attribute">data</span>": <span class="hljs-value">[ { "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"c02"</span></span>, "<span class="hljs-attribute">order</span>": <span class="hljs-value"><span class="hljs-string">"2"</span></span>, "<span class="hljs-attribute">zoom</span>": <span class="hljs-value"><span class="hljs-string">"8"</span></span>,  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Grand Rapids"</span></span>, "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"MI"</span></span>,  "<span class="hljs-attribute">lat</span>": <span class="hljs-value"><span class="hljs-string">"42.9633599"</span></span>, "<span class="hljs-attribute">lon</span>": <span class="hljs-value"><span class="hljs-string">"-85.6680863"</span></span>},
                { "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"c03"</span></span>, "<span class="hljs-attribute">order</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>, "<span class="hljs-attribute">zoom</span>": <span class="hljs-value"><span class="hljs-string">"10"</span></span>, "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Cary"</span></span>,         "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NC"</span></span>,  "<span class="hljs-attribute">lat</span>": <span class="hljs-value"><span class="hljs-string">"39.79154"</span></span>,   "<span class="hljs-attribute">lon</span>": <span class="hljs-value"><span class="hljs-string">"-78.7811169"</span></span>}
    ]</span>}
@@ -851,11 +909,13 @@ can be obtained.  A list of events which have ocurred, or which are
 projected to ocurr at a station can be obtained as well.</p>
 <p>Events which can occur at a station include the following:</p>
 <ul>
-<li><p>pumpfail - a pump has been declared inoperative at the station</p></li>
-<li><p>pumpfix  - a pump is returned to service after a fail or leak event</p></li>
-<li><p>tankfail - the tank starts to operate outside of required constraints</p></li>
-<li><p>tankfix  - the tank returns to operation within required constraints</p></li>
-<li><p>top  - a tank has been filled at the station</p></li>
+<li><p>pumpfail - a pump has been detected as being inoperative at the station</p></li>
+<li><p>pumpactive  - a pump is returned to service after being inactive</p></li>
+<li><p>pumpinactive  - a pump is removed from service due to scheduled maintenance</p></li>
+<li><p>tankfail - a tank has been detected as operating outside of required constraints</p></li>
+<li><p>tankactive  - a tank is returned to service within required constraints</p></li>
+<li><p>tankinactive  - a tank is removed from service due to scheduled maintenance</p></li>
+<li><p>tankfill  - a tank has been filled at the station</p></li>
 </ul>
 <h4 id="station-stations-collection">Stations Collection&nbsp;<a href="#station-stations-collection"><i class="fa fa-link"></i></a></h4><p>Obtain a list of all stations in the corporation.  This is a paged URI
 that can be used to obtain the entire set of information in groups of
@@ -921,12 +981,12 @@ provides only the event types included for that parameter.</p>
 <section id="station-station-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List_Station_Events</span></div><div style="float:left"><a href="#station-station-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/stations/{stationid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>from</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>first</span></span>&nbsp;<p>date string for the start of the period to report events.</p>
 </dd><dt>to</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>today</span></span>&nbsp;<p>date string for the end of the period to report events.</p>
 </dd><dt>type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>all</span></span>&nbsp;<p>selection of one or more event types to report events for.</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>/stations/s007/events?from=last%20week;to=today;type=all</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#48d927df88d5d8182ad15e0a46a1e164" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="48d927df88d5d8182ad15e0a46a1e164" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json</span><br></code></pre><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>/stations/s007/events?from=last%20week;to=today;type=all</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#bc6b0376f2235757340faf59cd2f8419" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="bc6b0376f2235757340faf59cd2f8419" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json</span><br></code></pre><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">scope</span>": <span class="hljs-value"><span class="hljs-string">"station"</span></span>,
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"s007"</span></span>,
   "<span class="hljs-attribute">events</span>": <span class="hljs-value">[
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumpfail"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440019521"</span> </span>},
-    { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumprepaired"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440278764"</span> </span>},
+    { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumpactive"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440278764"</span> </span>},
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"tankfill"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"t0021"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440392400"</span> </span>},
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"tankfill"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"t0022"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440392400"</span> </span>},
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"tankfill"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"t0023"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440392400"</span> </span>}
@@ -939,8 +999,9 @@ or all of the fuel types dispensed.  A list of events that have occurred,
 or which are projected to occur, can be obtained as well.</p>
 <p>Events which can occur at a pump include the following:</p>
 <ul>
-<li><p>pumpfail - the pump has been declared as inoperative</p></li>
-<li><p>pumprepaired - the pump has been declared as operational</p></li>
+<li><p>pumpfail - a pump has been detected as being inoperative at the station</p></li>
+<li><p>pumpactive  - a pump is returned to service after being inactive</p></li>
+<li><p>pumpinactive  - a pump is removed from service due to scheduled maintenance</p></li>
 </ul>
 <h4 id="pump-pump-collection">Pump Collection&nbsp;<a href="#pump-pump-collection"><i class="fa fa-link"></i></a></h4><p>Obtain a list of all the pumps in the corporation.  This is a paged URI
 that can be used to obtain the entire set of information in groups of
@@ -999,12 +1060,12 @@ only events of the types included in the parameter value.</p>
 <section id="pump-pump-events-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List_Pump_Events</span></div><div style="float:left"><a href="#pump-pump-events-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/pumps/{pumpid}/events{?from,to,type}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>from</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>first</span></span>&nbsp;<p>date string for the start of the period to report events.</p>
 </dd><dt>to</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>today</span></span>&nbsp;<p>date string for the end of the period to report events.</p>
 </dd><dt>type</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>all</span></span>&nbsp;<p>selection of one or more event types to report events for.</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>/pumps/p0849/events?from=last%20week;to=today;type=all</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#6273a3b79f53aaa8f35dcc2373aa4c25" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="6273a3b79f53aaa8f35dcc2373aa4c25" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json</span><br></code></pre><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>/pumps/p0849/events?from=last%20week;to=today;type=all</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#e3fbfa49dcee9f858b47190388cfbdb6" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="e3fbfa49dcee9f858b47190388cfbdb6" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/event.json</span><br></code></pre><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">scope</span>": <span class="hljs-value"><span class="hljs-string">"pump"</span></span>,
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>,
   "<span class="hljs-attribute">events</span>": <span class="hljs-value">[
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumpfail"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440019521"</span> </span>},
-    { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumprepaired"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440278764"</span> </span>}
+    { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"pumpactive"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"p0849"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440278764"</span> </span>}
   ]
 </span>}
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tank">Tank&nbsp;<a href="#tank"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>These resource identifiers represent information about the tank resources
@@ -1014,9 +1075,10 @@ of events for a tank can be obtained.  These events can be historical or
 future projections.</p>
 <p>Events which can occur at a tank include the following:</p>
 <ul>
-<li><p>tankfail - the tank starts to operate outside of required constraints</p></li>
-<li><p>tankfix  - the tank returns to operation within required constraints</p></li>
-<li><p>top      - a tank has been filled at the station</p></li>
+<li><p>tankfail - a tank has been detected as operating outside of required constraints</p></li>
+<li><p>tankactive  - a tank is returned to service within required constraints</p></li>
+<li><p>tankinactive  - a tank is removed from service due to scheduled maintenance</p></li>
+<li><p>tankfill  - a tank has been filled at the station</p></li>
 </ul>
 <h4 id="tank-tank-collection">Tank Collection&nbsp;<a href="#tank-tank-collection"><i class="fa fa-link"></i></a></h4><p>Obtain a list of all tanks in the corporation.  This is a paged URI that
 can be used to obtain the entire set of information in groups of <code>span</code>
@@ -1055,7 +1117,7 @@ provides only the event types included for that parameter.</p>
     { "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"tankfill"</span></span>, "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"t0022"</span></span>, "<span class="hljs-attribute">when</span>": <span class="hljs-value"><span class="hljs-string">"1440392400"</span> </span>}
   ]
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Aug 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
