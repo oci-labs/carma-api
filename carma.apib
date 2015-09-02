@@ -290,6 +290,43 @@ value.
 
 + Response 404
 
+## Station Maintenance [/stations/{stationid}/maintenance{?from,to,itemtype}]
+
+Station maintenance actions are records of completed maintenance activity
+that was undertaken at a specific station.  This includes maintenance
+of all pumps and tanks that are located at the station.  The returned
+information includes a list of maintenance actions and the items that
+were performed during the supplied interval.  If no interval was supplied
+then all maintenance records are returned.  If no `itemtype` parameter
+is supplied, then maintenance actions for all item types are returned.
+
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to report maintenance actions .
+    + to = `today` (optional,string) ... date string for the end of the period to report maintenance actions.
+    + itemtype = `all` (optional,string) ... selection of one or more item types for which maintenance actions are returned.
+
+### List_Station_Maintenance [GET]
+
++ Request /stations/s007/maintenance?from=last%20week&to=today&itemtype=all
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/maintenance.json)
+
+    + Body
+
+        {
+          "scope": "station",
+          "id": "s007",
+          "maintenance": [
+            {"type": "pumpfail", "id": "p0849", "detected": "1440019521", "repaired": "1440278764", "description": "No data received from pump", "action": "Replace sensor"},
+            {"type": "tankactive", "id": "t022", "repaired": "1440278764", "description": "scheduled maintenance", "action": "calibrate level sensor"}
+          ]
+        }
+
++ Response 204
+
++ Response 404
+
 ## Station Events [/stations/{stationid}/events{?from,to,type}]
 
 Station events are a time series of different event types.  If no `from`
@@ -463,6 +500,39 @@ parameter as a separate value.
 
 + Response 404
 
+## Pump Maintenance [/pumps/{pumpid}/maintenance{?from,to}]
+
+Pump maintenance actions are records of completed maintenance activity
+that was undertaken for a specific pump.  The returned information
+includes a list of maintenance actions and the items that were performed
+during the supplied interval.  If no interval was supplied then all
+maintenance records are returned.
+
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to report maintenance actions .
+    + to = `today` (optional,string) ... date string for the end of the period to report maintenance actions.
+
+### List_Pump_Maintenance [GET]
+
++ Request /pumps/p0849/maintenance?from=last%20week&to=today
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/maintenance.json)
+
+    + Body
+
+        {
+          "scope": "pump",
+          "id": "p0849",
+          "maintenance": [
+            {"type": "pumpfail", "id": "p0849", "detected": "1440019521", "repaired": "1440278764", "description": "No data received from pump", "action": "Replace sensor"}
+          ]
+        }
+
++ Response 204
+
++ Response 404
+
 ## Pump Events [/pumps/{pumpid}/events{?from,to,type}]
 
 Pump events are a time series of different event types.  If no `from` or
@@ -585,6 +655,39 @@ Obtain the information for a single tank.
           "fuel": "premium",
           "capacity": "20000"
         },
+
++ Response 404
+
+## Tank Maintenance [/tanks/{tankid}/maintenance{?from,to}]
+
+Tank maintenance actions are records of completed maintenance activity
+that was undertaken for a specific tank.  The returned information
+includes a list of maintenance actions and the items that were performed
+during the supplied interval.  If no interval was supplied then all
+maintenance records are returned.
+
++ Parameters
+
+    + from = `first` (optional,string) ... date string for the start of the period to report maintenance actions .
+    + to = `today` (optional,string) ... date string for the end of the period to report maintenance actions.
+
+### List_Tank_Maintenance [GET]
+
++ Request /tanks/t022/maintenance?from=last%20week&to=today
+
++ Response 200 (application/prs.com.ociweb.demo.carma+json; profile=http://oci-labs.github.io/carma-api/schemas/maintenance.json)
+
+    + Body
+
+        {
+          "scope": "tank",
+          "id": "t022",
+          "maintenance": [
+            {"type": "tankactive", "id": "t022", "repaired": "1440278764", "description": "scheduled maintenance", "action": "calibrate level sensor"}
+          ]
+        }
+
++ Response 204
 
 + Response 404
 

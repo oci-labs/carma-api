@@ -120,3 +120,11 @@ as specifying "all".  Values, other than "all" which are accepted include:
 "tankinacive", and "tankfill".  More than one event type can be specified
 by including them as a comma separated list of types.
 
+#### itemtype
+
+The `itemtype` parameter indicates which types of items (pumps or tanks)
+are to be included in a list of maintenance records being returned.  The
+special value of "all" indicates that records for item types should be
+included.  Values other than "all" which are accepted include: ("tank",
+"pump").
+

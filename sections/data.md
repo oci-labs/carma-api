@@ -96,6 +96,15 @@ value is:
 
 <!-- include(../schemas/revenue.json) -->
 
+#### Maintenance Data
+
+The maintenance data schema description filename and the media type parameter
+value is:
+
+* `http://oci-labs.github.io/carma-api/schemas/maintenance.json`
+
+<!-- include(../schemas/maintenance.json) -->
+
 #### Event Data
 
 The event data schema description filename and the media type parameter
